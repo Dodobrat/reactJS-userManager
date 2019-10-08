@@ -1,11 +1,12 @@
 //Imports
 @import '~bootstrap/scss/bootstrap';
-
 //Typography
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap');
+
 $family: 'Nunito Sans', sans-serif;
 
 // Colors
+$white: #fff;
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
@@ -17,9 +18,60 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
+//Animations
+$fast-anim: 0.2s ease-in-out;
+
 body {
   margin: 0;
   font-family: $family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar {
+  .navbar-toggler {
+    border: none;
+    border-radius: 0;
+    &:focus {
+      outline: none;
+    }
+    .line{
+      transition: all $fast-anim;
+      width: 1.5rem;
+      height: 0.1rem;
+      background: $white;
+      margin: 0.4rem 0;
+      &:nth-child(1){
+        transform: rotate(45deg) translate(0.1rem, 0);
+        margin-bottom: 0;
+      }
+      &:nth-child(2){
+        opacity: 0;
+        margin: 0;
+        height: 0;
+      }
+      &:nth-child(3){
+        transform: rotate(-45deg) translate(0.1rem, 0);
+        margin-top: 0;
+      }
+    }
+    &.collapsed{
+      .line{
+        transition: all $fast-anim;
+        width: 1.5rem;
+        height: 0.1rem;
+        background: $white;
+        margin: 0.4rem 0;
+        &:nth-child(1){
+          transform: rotate(0) translate(0,0);
+        }
+        &:nth-child(2){
+          opacity: 1;
+        }
+        &:nth-child(3){
+          transform: rotate(0) translate(0,0);
+        }
+      }
+    }
+  }
 }
