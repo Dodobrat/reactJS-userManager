@@ -1,13 +1,15 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 class App extends React.Component{
     render() {
         return(
             <Router>
+                <Navigation/>
                 <div className="App">
-                    <Navigation/>
+                    <Redirect exact from="/" to="/login" />
                     <Route path="/login" render={props => (
                         <div>
                             login
@@ -19,6 +21,7 @@ class App extends React.Component{
                         </div>
                     )}/>
                 </div>
+                <Footer/>
             </Router>
         )
     }

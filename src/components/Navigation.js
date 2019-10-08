@@ -5,7 +5,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 class Navigation extends React.Component{
     render(){
         return(
-            <Navbar expand="lg" bg="dark" variant="dark">
+            <Navbar fixed="top" expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand>User Manager</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav">
                     <div className="line"></div>
