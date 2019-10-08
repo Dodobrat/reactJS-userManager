@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
+import Navigation from "./components/layouts/Navigation";
+import Footer from "./components/layouts/Footer";
 
 class App extends React.Component{
     render() {
