@@ -20,9 +20,10 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
-//Animations
+//Transitions
 $fast-anim: 0.2s ease-in-out;
 
+//Globals
 body {
   height: 100%;
   margin: 0;
@@ -30,16 +31,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 #root{
   height: 100vh;
 }
 .App{
   padding-top: 3.5rem;
   min-height: 100%;
-  margin-bottom: -4.5rem;
 }
 
+//Helpers
+.centered{
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 4rem 0;
+  @media (max-width: 992px) {
+    padding: 2rem 0;
+  }
+}
+
+//Layouts
 .navbar {
   .navbar-toggler {
     border: none;
@@ -89,7 +99,6 @@ body {
 }
 
 footer{
-  min-height: 4.5rem;
   width: 100%;
   background: $dark;
   color: $white;

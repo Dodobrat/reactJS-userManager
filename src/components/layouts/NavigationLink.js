@@ -12,7 +12,10 @@ class NavigationLink extends React.Component{
 
     render(){
         return(
-            <NavLink to={this.state.goesTo} className="nav-link" activeClassName="active">{this.state.linkName}</NavLink>
+            <NavLink to={this.state.goesTo}
+                     className="nav-link"
+                     activeClassName="active">{this.state.linkName}
+            </NavLink>
         );
     }
 }
