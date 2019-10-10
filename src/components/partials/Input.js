@@ -17,9 +17,8 @@ class Input extends React.Component{
 
     render(){
         return(
-            <Form.Group controlId="formBasicEmail">
-                <Form.Label for={this.state.name + '_field'}
-                            column={12}
+            <Form.Group controlId={this.state.name + '_field'}>
+                <Form.Label column={12}
                             className={'px-0'}>
                     {this.state.label}
                 </Form.Label>
@@ -27,7 +26,6 @@ class Input extends React.Component{
                               type={this.state.type}
                               value={this.state.value}
                               name={this.state.name}
-                              id={this.state.name + '_field'}
                               required={!!(this.state.required)}/>
                 <Form.Text className="text-muted">
                     {this.state.helper}

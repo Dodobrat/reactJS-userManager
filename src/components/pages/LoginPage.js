@@ -33,7 +33,7 @@ class LoginPage extends React.Component{
                                 </Form>
                             </Card.Body>
                             <Card.Footer>
-                                <NavigationLink goesTo={'/forgot'} linkName={'Forgot Password'} />
+                                <NavigationLink goesTo={'/forgot'} linkName={'Forgot Password'} customClass={'login-link'}/>
                             </Card.Footer>
                         </Card>
                     </div>

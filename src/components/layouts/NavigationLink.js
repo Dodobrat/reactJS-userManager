@@ -6,15 +6,17 @@ class NavigationLink extends React.Component{
         super(props);
         this.state = {
             goesTo : this.props.goesTo,
-            linkName: this.props.linkName
+            linkName: this.props.linkName,
+            customClass: this.props.customClass
         }
     }
 
     render(){
         return(
             <NavLink to={this.state.goesTo}
-                     className="nav-link"
-                     activeClassName="active">{this.state.linkName}
+                     className={this.state.customClass ? this.state.customClass : "nav-link"}
+                     activeClassName="active">
+                {this.state.linkName}
             </NavLink>
         );
     }
