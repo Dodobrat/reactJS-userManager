@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationLink from "./NavigationLink";
+import NavigationLink from "../partials/NavigationLink";
 import { Navbar, Nav } from 'react-bootstrap';
 
 class Navigation extends React.Component{

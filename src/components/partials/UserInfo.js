@@ -1,5 +1,5 @@
 import React from "react";
-import NavigationLink from "../layouts/NavigationLink";
+import NavigationLink from "./NavigationLink";
 
 class UserInfo extends React.Component{
     render() {
@@ -7,7 +7,7 @@ class UserInfo extends React.Component{
             <div className="user-info">
                 <h5 className="user-name">
                     John Doe
-                    <span className="badge badge-pill badge-success">Active</span>
+                    <div className="online-indicator"></div>
                 </h5>
                 <hr/>
                 <p className="user-email text-muted">

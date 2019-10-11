@@ -152,10 +152,13 @@ body {
       .user-name{
         margin: 2rem 0 0.5rem 0;
         font-weight: 700;
-        span{
-          font-size: 0.7rem;
+        .online-indicator{
+          width: 0.7rem;
+          height: 0.7rem;
+          border-radius: 50%;
+          background: $green;
+          display: inline-block;
           margin: 0 0 0 0.5rem;
-          transform: translateY(-0.25rem);
         }
       }
       .user-email{

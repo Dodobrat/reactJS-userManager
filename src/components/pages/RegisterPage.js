@@ -17,23 +17,6 @@ class RegisterPage extends React.Component {
                             </Card.Header>
                             <Card.Body>
                                 <Form>
-                                    <Input name={'first_name'}
-                                           placeholder={'Enter First Name'}
-                                           label={'First Name'}
-                                           type={'text'}
-                                           required={'true'}
-                                           helper={'Name must be at least 2 characters'}/>
-                                    <Input name={'last_name'}
-                                           placeholder={'Enter Last Name'}
-                                           label={'Last Name'}
-                                           type={'text'}
-                                           required={'true'}
-                                           helper={'Name must be at least 2 characters'}/>
-                                    <Input name={'username'}
-                                           placeholder={'Enter Username'}
-                                           label={'Username'}
-                                           type={'text'}
-                                           required={'true'}/>
                                     <Input name={'email'}
                                            placeholder={'Enter E-mail address'}
                                            label={'E-mail'}
@@ -49,21 +32,6 @@ class RegisterPage extends React.Component {
                                            placeholder={'Confirm Password'}
                                            label={'Password Confirmation'}
                                            type={'password'}
-                                           required={'true'}/>
-                                    <Input name={'country'}
-                                           placeholder={'Where are you from'}
-                                           label={'Country'}
-                                           type={'text'}
-                                           required={'true'}/>
-                                    <Input name={'birthday'}
-                                           placeholder={'Write your Birth Day'}
-                                           label={'Birth Date'}
-                                           type={'date'}
-                                           required={'true'}/>
-                                    <Input name={'avatar'}
-                                           placeholder={'Choose Photo'}
-                                           label={'Profile Picture'}
-                                           type={'file'}
                                            required={'true'}/>
                                     <SubmitBtn value={'Register'}
                                                variant={'primary'}/>

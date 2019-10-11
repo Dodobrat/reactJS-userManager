@@ -2,7 +2,7 @@ import React from "react";
 import {Card, Container, Form} from "react-bootstrap";
 import Input from "../partials/Input";
 import SubmitBtn from "../partials/SubmitBtn";
-import NavigationLink from "../layouts/NavigationLink";
+import NavigationLink from "../partials/NavigationLink";
 
 class LoginPage extends React.Component{
     render() {
