@@ -32,15 +32,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#root{
+
+#root {
   height: 100vh;
 }
-.ant-layout{
+
+.ant-layout {
   min-height: 100%;
 }
 
 //Helpers
-.centered{
+.centered {
   margin: 0 auto;
   max-width: 500px;
   padding: 4rem 0;
@@ -49,28 +51,32 @@ body {
   }
 }
 
-.card-container{
+.card-container {
   max-width: 400px;
   margin: 4rem auto 3rem auto;
-  .ant-card-head-title{
+
+  .ant-card-head-title {
     font-weight: 600;
     font-size: 1.2rem;
   }
 }
+
 .form-wrapper {
   max-width: 380px;
   margin: 0 auto;
 }
-.ant-form-item-label{
+
+.ant-form-item-label {
   line-height: 1;
   font-size: 1rem;
-  label{
+
+  label {
     margin: 0 0 0.2rem 0;
     line-height: 1;
   }
 }
 
-.ant-form-item{
+.ant-form-item {
   line-height: 1;
   margin: 0 0 0.8rem 0;
 }
@@ -83,32 +89,29 @@ body {
   width: 100%;
 }
 
-.muted{
+.muted {
   color: #666;
 }
 
-.login-link{
+.login-link {
   color: $black;
-  &:hover{
+
+  &:hover {
     color: inherit;
     text-decoration: none;
   }
 }
 
 //Layouts
-.ant-layout-header{
+.ant-layout-header {
   height: 3.5rem;
   line-height: 3.5rem;
-  padding: 0 3.5rem;
-  @media (max-width: 991px) {
-    padding: 0 2rem;
-  }
-  @media (max-width: 679px) {
-    padding: 0 1rem;
-  }
-  ul{
+  padding: 0;
+
+  ul {
     height: 100%;
-    a{
+
+    a {
       height: 100%;
       line-height: 3.5rem;
       text-decoration: none;
@@ -117,20 +120,61 @@ body {
 }
 
 //Dashboard Page
-.content-wrapper{
+.content-wrapper {
   min-width: 0;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
-  .ant-layout-sider-zero-width-trigger{
+
+  .ant-layout-sider-zero-width-trigger {
     top: 0;
-    right: -2rem;
+    right: -2.05rem;
     width: 2rem;
     height: 2rem;
-    line-height: 1.4;
+    line-height: 1.9;
   }
-  .ant-menu-item{
+
+  .ant-menu-item {
     margin: 0;
+  }
+
+  .user-info {
+    padding: 1rem;
+    background: $dark;
+    display: flex;
+    align-items: center;
+
+    &-pic {
+      flex: 0 0 2.5rem;
+    }
+
+    &-details {
+      flex: 1;
+      padding: 0 0 0 1rem;
+      &-name {
+        margin: 0;
+        font-weight: 600;
+        color: $white;
+      }
+
+      &-username {
+        margin: 0;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.8);
+      }
+    }
+  }
+
+  .ant-table-small{
+    width: 100%;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  .ant-table-thead>tr>th .ant-table-header-column{
+    white-space: nowrap;
+  }
+  .ant-table-tbody>tr>td{
+    white-space: nowrap;
   }
 }
