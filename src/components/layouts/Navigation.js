@@ -1,26 +1,32 @@
 import React from 'react';
+import {Layout, Menu} from 'antd';
 import NavigationLink from "../partials/NavigationLink";
-import { Navbar, Nav } from 'react-bootstrap';
 
-class Navigation extends React.Component{
-    render(){
-        return(
-            <Navbar fixed="top" expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand>User Manager</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav">
-                    <div className="line"></div>
-                    <div className="line"></div>
-                    <div className="line"></div>
-                </Navbar.Toggle>
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto">
-                        <NavigationLink goesTo={'/login'} linkName={'Login'} />
-                        <NavigationLink goesTo={'/register'} linkName={'Register'}/>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+const {Header} = Layout;
+
+class Navigation extends React.Component {
+    render() {
+        return (
+            <Header>
+                <Menu
+                    theme="dark"
+                    mode="horizontal"
+                    className='content-wrapper'>
+                    <NavigationLink goesTo={'/login'}
+                                    linkName={'Login'}
+                                    customClass={'ant-menu-item'}/>
+                    <NavigationLink goesTo={'/register'}
+                                    linkName={'Register'}
+                                    customClass={'ant-menu-item'}/>
+
+
+                    {/*// WHEN LOGGED IN*/}
+
+                </Menu>
+            </Header>
         );
     }
 }
 
 export default Navigation;
+

@@ -1,16 +1,13 @@
 import React from 'react';
-import {Container, Jumbotron} from "react-bootstrap";
+import {Empty} from 'antd';
 
 function NotFound() {
-    return(
-        <Jumbotron fluid>
-            <Container>
-                <h1>404 Not Found</h1>
-                <p>
-                    This is not the page you are looking for 0_0
-                </p>
-            </Container>
-        </Jumbotron>
+    return (
+        <Empty style={{padding: '4rem 0'}} description={
+            <span style={{ fontSize: '1.4rem'}}>
+                404 Not Found
+            </span>
+        }/>
     )
 }
 

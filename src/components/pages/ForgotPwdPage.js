@@ -1,37 +1,57 @@
 import React from "react";
-import {Card, Container, Form} from "react-bootstrap";
-import Input from "../partials/Input";
-import SubmitBtn from "../partials/SubmitBtn";
+import {Form, Input, Button, Card, Icon} from 'antd';
 
-class ForgotPwdPage extends React.Component{
+class RegistrationForm extends React.Component {
+    state = {
+        confirmDirty: false
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
+    };
+
     render() {
-        return(
-            <div className="form-wrapper">
-                <Container>
-                    <div className="centered">
-                        <Card>
-                            <Card.Header>
-                                <h4 className="mb-0">
-                                    Reset Your Password
-                                </h4>
-                            </Card.Header>
-                            <Card.Body>
-                                <Form>
-                                    <Input name={'email'}
-                                           placeholder={'Enter E-mail address'}
-                                           label={'E-mail'}
-                                           type={'email'}
-                                           required={'true'}/>
-                                    <SubmitBtn value={'Send Password Reset Link'}
-                                               variant={'primary'}/>
-                                </Form>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                </Container>
-            </div>
-        )
+        const {getFieldDecorator} = this.props.form;
+
+        return (
+            <Card title="Password Reset" bordered={true} className='card-container'>
+                <Form onSubmit={this.handleSubmit} className='form-wrapper'>
+                    <Form.Item label="E-mail">
+                        {getFieldDecorator('email', {
+                            rules: [
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ],
+                        })(
+                            <Input
+                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                placeholder=" E-mail"
+                            />
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="form-button">
+                            Send Reset Password Link
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Card>
+        );
     }
 }
 
+const ForgotPwdPage = Form.create({name: 'pwdReset'})(RegistrationForm);
+
 export default ForgotPwdPage;
+

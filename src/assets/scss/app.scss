@@ -1,11 +1,12 @@
 //Imports
-@import '~bootstrap/scss/bootstrap';
+@import '~antd/dist/antd.min.css';
 //Typography
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap');
 
 $family: 'Nunito Sans', sans-serif;
 
 // Colors
+$activated: #1890FF;
 $white: #fff;
 $black: #000;
 $dark: #343A40;
@@ -34,8 +35,7 @@ body {
 #root{
   height: 100vh;
 }
-.App{
-  padding-top: 3.5rem;
+.ant-layout{
   min-height: 100%;
 }
 
@@ -49,6 +49,44 @@ body {
   }
 }
 
+.card-container{
+  max-width: 400px;
+  margin: 4rem auto 3rem auto;
+  .ant-card-head-title{
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+}
+.form-wrapper {
+  max-width: 380px;
+  margin: 0 auto;
+}
+.ant-form-item-label{
+  line-height: 1;
+  font-size: 1rem;
+  label{
+    margin: 0 0 0.2rem 0;
+    line-height: 1;
+  }
+}
+
+.ant-form-item{
+  line-height: 1;
+  margin: 0 0 0.8rem 0;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.form-button {
+  width: 100%;
+}
+
+.muted{
+  color: #666;
+}
+
 .login-link{
   color: $black;
   &:hover{
@@ -58,154 +96,41 @@ body {
 }
 
 //Layouts
-.navbar {
-  .navbar-toggler {
-    border: none;
-    border-radius: 0;
-    &:focus {
-      outline: none;
-    }
-    .line{
-      transition: all $fast-anim;
-      width: 1.5rem;
-      height: 0.1rem;
-      background: $white;
-      margin: 0.4rem 0;
-      &:nth-child(1){
-        transform: rotate(45deg) translate(0.1rem, 0);
-        margin-bottom: 0;
-      }
-      &:nth-child(2){
-        opacity: 0;
-        margin: 0;
-        height: 0;
-      }
-      &:nth-child(3){
-        transform: rotate(-45deg) translate(0.1rem, 0);
-        margin-top: 0;
-      }
-    }
-    &.collapsed{
-      .line{
-        transition: all $fast-anim;
-        width: 1.5rem;
-        height: 0.1rem;
-        background: $white;
-        margin: 0.4rem 0;
-        &:nth-child(1){
-          transform: rotate(0) translate(0,0);
-        }
-        &:nth-child(2){
-          opacity: 1;
-        }
-        &:nth-child(3){
-          transform: rotate(0) translate(0,0);
-        }
-      }
-    }
+.ant-layout-header{
+  height: 3.5rem;
+  line-height: 3.5rem;
+  padding: 0 3.5rem;
+  @media (max-width: 991px) {
+    padding: 0 2rem;
   }
-}
-
-.footer{
-  width: 100%;
-  background: $dark;
-  color: $white;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  span{
-    font-size: 0.8rem;
+  @media (max-width: 679px) {
+    padding: 0 1rem;
+  }
+  ul{
+    height: 100%;
+    a{
+      height: 100%;
+      line-height: 3.5rem;
+      text-decoration: none;
+    }
   }
 }
 
 //Dashboard Page
 .content-wrapper{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
   min-width: 0;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
+  padding: 0 1rem;
+  .ant-layout-sider-zero-width-trigger{
+    top: 0;
+    right: -2rem;
+    width: 2rem;
+    height: 2rem;
+    line-height: 1.4;
   }
-  .sidebar-wrapper{
-    flex: 0 0 300px;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background: #f1f1f1;
-    min-height: calc(100vh - 3.5rem);
-    @media (max-width: 991px) {
-      flex: 0 0 100%;
-      min-height: unset;
-    }
-    .avatar-container{
-      text-align: center;
-      img{
-        border-radius: 50%;
-        height: 9rem;
-        width: 9rem;
-      }
-    }
-    .user-info{
-      .user-name{
-        margin: 2rem 0 0.5rem 0;
-        font-weight: 700;
-        .online-indicator{
-          width: 0.7rem;
-          height: 0.7rem;
-          border-radius: 50%;
-          background: $green;
-          display: inline-block;
-          margin: 0 0 0 0.5rem;
-        }
-      }
-      .user-email{
-        margin: 0;
-      }
-      .user-alias{
-        margin: 0;
-        font-weight: 600;
-      }
-      .profile-edit{
-        margin: 2rem 0;
-      }
-    }
-  }
-  .main-wrapper{
-    flex: 1;
-    padding: 2rem;
-    width: 100%;
-    @media (max-width: 991px) {
-      flex: 0 0 100%;
-      padding: 1rem;
-    }
-    .about{
-      .blockquote{
-        font-size: 1rem;
-        font-weight: 400;
-      }
-    }
-    .log-history{
-
-    }
-  }
-}
-
-.log-table-container{
-  width: 100%;
-  overflow: hidden;
-  overflow-x: auto;
-  .log-table{
+  .ant-menu-item{
     margin: 0;
-    @media (max-width: 991px) {
-      thead{
-        white-space: nowrap;
-      }
-      tbody{
-        white-space: nowrap;
-      }
-    }
   }
 }

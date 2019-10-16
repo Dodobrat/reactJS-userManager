@@ -8,24 +8,28 @@ import ForgotPwdPage from "./components/pages/ForgotPwdPage";
 import NotFound from "./components/pages/NotFound";
 import DashboardPage from "./components/pages/DashboardPage";
 import EditPage from "./components/pages/EditPage";
+import { Layout } from 'antd';
+const { Content } = Layout;
 
 class App extends React.Component {
     render() {
         return (
             <Router>
-                <Navigation/>
-                <div className="App">
-                    <Switch>
-                        <Redirect exact from="/" to="/login"/>
-                        <Route exact path="/login" component={LoginPage}/>
-                        <Route exact path="/register" component={RegisterPage}/>
-                        <Route exact path="/forgot" component={ForgotPwdPage}/>
-                        <Route exact path="/dashboard" component={DashboardPage}/>
-                        <Route exact path="/edit" component={EditPage}/>
-                        <Route path="*" component={NotFound}/>
-                    </Switch>
-                </div>
-                <Footer/>
+                <Layout className="layout">
+                    <Navigation/>
+                    <Content>
+                        <Switch>
+                            <Redirect exact from="/" to="/login"/>
+                            <Route path="/login" component={LoginPage}/>
+                            <Route path="/register" component={RegisterPage}/>
+                            <Route path="/forgot" component={ForgotPwdPage}/>
+                            <Route path="/dashboard" component={DashboardPage}/>
+                            <Route path="/edit" component={EditPage}/>
+                            <Route path="*" component={NotFound}/>
+                        </Switch>
+                    </Content>
+                    <Footer/>
+                </Layout>
             </Router>
         )
     }

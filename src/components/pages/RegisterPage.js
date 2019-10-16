@@ -1,48 +1,125 @@
 import React from "react";
-import {Card, Container, Form} from "react-bootstrap";
-import Input from "../partials/Input";
-import SubmitBtn from "../partials/SubmitBtn";
+import {Form, Input, Checkbox, Button, Card, Icon} from 'antd';
+import NavigationLink from "../partials/NavigationLink";
 
-class RegisterPage extends React.Component {
+class RegistrationForm extends React.Component {
+    state = {
+        confirmDirty: false,
+        autoCompleteResult: [],
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
+    };
+
+    handleConfirmBlur = e => {
+        const {value} = e.target;
+        this.setState({confirmDirty: this.state.confirmDirty || !!value});
+    };
+
+    compareToFirstPassword = (rule, value, callback) => {
+        const {form} = this.props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Two passwords that you enter is inconsistent!');
+        } else {
+            callback();
+        }
+    };
+
+    validateToNextPassword = (rule, value, callback) => {
+        const {form} = this.props;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], {force: true});
+        }
+        callback();
+    };
+
     render() {
+        const {getFieldDecorator} = this.props.form;
+
         return (
-            <div className="form-wrapper">
-                <Container>
-                    <div className="centered">
-                        <Card>
-                            <Card.Header>
-                                <h4 className="mb-0">
-                                    Register
-                                </h4>
-                            </Card.Header>
-                            <Card.Body>
-                                <Form>
-                                    <Input name={'email'}
-                                           placeholder={'Enter E-mail address'}
-                                           label={'E-mail'}
-                                           type={'email'}
-                                           required={'true'}/>
-                                    <Input name={'password'}
-                                           placeholder={'Enter Password'}
-                                           label={'Password'}
-                                           type={'password'}
-                                           required={'true'}
-                                           helper={'Must be at least 6 characters long'}/>
-                                    <Input name={'password_confirm'}
-                                           placeholder={'Confirm Password'}
-                                           label={'Password Confirmation'}
-                                           type={'password'}
-                                           required={'true'}/>
-                                    <SubmitBtn value={'Register'}
-                                               variant={'primary'}/>
-                                </Form>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                </Container>
-            </div>
-        )
+            <Card title="Register" bordered={true} className='card-container'>
+                <Form onSubmit={this.handleSubmit} className='form-wrapper'>
+                    <Form.Item label="E-mail">
+                        {getFieldDecorator('email', {
+                            rules: [
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Please input your E-mail!',
+                                },
+                            ],
+                        })(
+                            <Input
+                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                placeholder=" E-mail"
+                            />
+                        )}
+                    </Form.Item>
+                    <Form.Item label="Password" hasFeedback>
+                        {getFieldDecorator('password', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                                {
+                                    validator: this.validateToNextPassword,
+                                },
+                            ],
+                        })(<Input.Password prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                           placeholder=" Password"/>)}
+                    </Form.Item>
+                    <Form.Item label="Confirm Password" hasFeedback>
+                        {getFieldDecorator('confirm', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Please confirm your password!',
+                                },
+                                {
+                                    validator: this.compareToFirstPassword,
+                                },
+                            ],
+                        })(<Input.Password prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                           placeholder=" Confirm Password" onBlur={this.handleConfirmBlur}/>)}
+                    </Form.Item>
+
+                    <Form.Item>
+                        {getFieldDecorator('agreement', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: 'Please read the agreement!',
+                                }
+                            ],
+                            valuePropName: 'checked',
+                        })(
+                            <Checkbox>
+                                I have read the <NavigationLink goesTo={'/terms'} linkName={'agreement'}/>
+                            </Checkbox>,
+                        )}
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="form-button">
+                            Register
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Card>
+        );
     }
 }
 
+const RegisterPage = Form.create({name: 'register'})(RegistrationForm);
+
 export default RegisterPage;
+

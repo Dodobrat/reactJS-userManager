@@ -14,8 +14,8 @@ class NavigationLink extends React.Component{
     render(){
         return(
             <NavLink to={this.state.goesTo}
-                     className={this.state.customClass ? this.state.customClass : "nav-link"}
-                     activeClassName="active">
+                     className={this.state.customClass}
+                     activeClassName="ant-menu-item-selected">
                 {this.state.linkName}
             </NavLink>
         );
