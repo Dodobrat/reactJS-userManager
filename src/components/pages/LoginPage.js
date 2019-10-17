@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
                             ],
                         })(
                             <Input
-                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                prefix={<Icon type="mail" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                 placeholder=" E-mail"
                             />
                         )}

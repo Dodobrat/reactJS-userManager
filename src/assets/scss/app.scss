@@ -89,6 +89,12 @@ body {
   width: 100%;
 }
 
+.ant-upload.ant-upload-select-picture-card{
+  width: 100%;
+  height: 100%;
+  margin-bottom: -1rem;
+}
+
 .muted {
   color: #666;
 }
@@ -162,6 +168,19 @@ body {
         margin: 0;
         font-size: 0.7rem;
         color: rgba(255,255,255,0.8);
+      }
+    }
+  }
+
+  .user-extra-info{
+    padding: 1rem 1rem 0 1rem;
+    &-text{
+      font-size: 0.75rem;
+      margin: 0.2rem;
+      color: rgba(0,0,0,0.5);
+      .highlighted{
+        font-weight: 600;
+        color: $black;
       }
     }
   }

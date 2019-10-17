@@ -98,9 +98,17 @@ class DashboardPage extends React.Component {
                                 <p className="user-info-details-username">Dodobrat</p>
                             </div>
                         </div>
+                        <div className="user-extra-info">
+                            <p className="user-extra-info-text">Born: <span className="highlighted">15 Jan 1998</span></p>
+                            <p className="user-extra-info-text">From: <span className="highlighted">Bulgaria</span></p>
+                            <p className="user-extra-info-text">E-mail: <span className="highlighted">dodobrat@abv.bg</span></p>
+                        </div>
                         <div style={{padding: '1rem'}}>
                             <Button block>
                                 <Icon type="edit" /> <NavigationLink goesTo={'/edit'} linkName={'Edit Profile'} customClass={'muted'}/>
+                            </Button>
+                            <Button block style={{margin: '0.5rem 0'}}>
+                                <Icon type="poweroff" /> <NavigationLink goesTo={'/logout'} linkName={'Logout'} customClass={'muted'}/>
                             </Button>
                         </div>
                     </Sider>

@@ -1,11 +1,16 @@
 import React from "react";
-import {Form, Input, Checkbox, Button, Card, Icon} from 'antd';
+import {Form, Input, Checkbox, Button, Card, Icon, Alert} from 'antd';
 import NavigationLink from "../partials/NavigationLink";
 
 class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
-        autoCompleteResult: [],
+        addedSuccessfully: false,
+        showSuccess: false,
+        showError: false,
+        errorCode: 400,
+        responseStatus: "nothing",
+        errorMessage: ""
     };
 
     handleSubmit = e => {
@@ -13,8 +18,32 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                fetch('http://localhost:3001/api/v1/cw/user/add', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({values})
+                }).then(res => {
+                    if (res.ok) {
+                        this.setState({
+                            addedSuccessfully: true
+                        })
+                    } else {
+                        this.setState({
+                            addedSuccessfully: false,
+                            errorCode: res.status
+                        })
+                    }
+                    return res.json()
+                }).then(data => this.checkResponse(data))
             }
         });
+    };
+
+    handleEmail = () => {
+        this.setState({responseStatus: "nothing"})
     };
 
     handleConfirmBlur = e => {
@@ -39,6 +68,23 @@ class RegistrationForm extends React.Component {
         callback();
     };
 
+    checkResponse = (data) => {
+        if (this.state.addedSuccessfully) {
+            this.props.form.resetFields();
+            this.setState({
+                showSuccess: true,
+                showError: false
+            });
+        } else {
+            this.setState({
+                errorMessage: data.message,
+                showSuccess: false,
+                showError: true,
+                responseStatus: "error"
+            });
+        }
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
 
@@ -59,8 +105,9 @@ class RegistrationForm extends React.Component {
                             ],
                         })(
                             <Input
-                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                prefix={<Icon type="mail" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                 placeholder=" E-mail"
+                                onChange={this.handleEmail}
                             />
                         )}
                     </Form.Item>
@@ -70,6 +117,10 @@ class RegistrationForm extends React.Component {
                                 {
                                     required: true,
                                     message: 'Please input your password!',
+                                },
+                                {
+                                    min: 6,
+                                    message: 'password should be at least 6 characters long!',
                                 },
                                 {
                                     validator: this.validateToNextPassword,
@@ -113,6 +164,8 @@ class RegistrationForm extends React.Component {
                             Register
                         </Button>
                     </Form.Item>
+                    {this.state.showSuccess ? <Alert message="account created successfully" type="success" /> :null}
+                    {this.state.showError ? <Alert message={this.state.errorMessage} type="error" /> :null}
                 </Form>
             </Card>
         );
