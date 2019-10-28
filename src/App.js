@@ -22,16 +22,18 @@ const App = () => {
         <AuthState>
             <AlertState>
                 <Router>
-                    <Alerts/>
-                    <Switch>
-                        <PrivateRoute exact path="/" component={Dashboard}/>
-                        <PrivateRoute exact path="/edit/:id" component={Edit}/>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/forgot" component={Reset}/>
-                        <Route component={NotFound}/>
-                    </Switch>
-                    <Footer/>
+                    <div className="container">
+                        <Alerts/>
+                        <Switch>
+                            <PrivateRoute exact path="/" component={Dashboard}/>
+                            <PrivateRoute exact path="/edit/:id" component={Edit}/>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/register" component={Register}/>
+                            <Route exact path="/forgot" component={Reset}/>
+                            <Route component={NotFound}/>
+                        </Switch>
+                        <Footer/>
+                    </div>
                 </Router>
             </AlertState>
         </AuthState>
