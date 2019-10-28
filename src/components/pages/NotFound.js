@@ -1,14 +1,11 @@
 import React from 'react';
-import {Empty} from 'antd';
 
-function NotFound() {
+const NotFound = () => {
     return (
-        <Empty style={{padding: '4rem 0'}} description={
-            <span style={{ fontSize: '1.4rem'}}>
-                404 Not Found
-            </span>
-        }/>
+        <div>
+            404
+        </div>
     )
-}
+};
 
 export default NotFound;

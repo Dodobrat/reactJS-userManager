@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Footer() {
+const Footer = () => {
     const date = new Date();
 
     return (
@@ -8,6 +8,6 @@ function Footer() {
             <span className='muted'>©{ date.getFullYear() }</span> Deyan Bozhilov <span className="muted">&</span> Lyuben Krastev
         </footer>
     );
-}
+};
 
 export default Footer;

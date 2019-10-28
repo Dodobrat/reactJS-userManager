@@ -1,5 +1,6 @@
-//Imports
-@import '~antd/dist/antd.min.css';
+//Font Awesome
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 //Typography
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap');
 
@@ -25,175 +26,79 @@ $cyan: #6cb2eb;
 $fast-anim: 0.2s ease-in-out;
 
 //Globals
+html{
+  font-size: 14px;
+}
+
 body {
-  height: 100%;
+  padding: 0;
   margin: 0;
+  font-size: 1rem;
   font-family: $family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #eee;
 }
 
-#root {
-  height: 100vh;
+.muted{
+  color: #888;
 }
 
-.ant-layout {
-  min-height: 100%;
+.link{
+  text-decoration: none;
+  color: $activated;
 }
 
-//Helpers
-.centered {
-  margin: 0 auto;
-  max-width: 500px;
-  padding: 4rem 0;
-  @media (max-width: 992px) {
-    padding: 2rem 0;
-  }
-}
-
-.card-container {
-  max-width: 400px;
-  margin: 4rem auto 3rem auto;
-
-  .ant-card-head-title {
-    font-weight: 600;
-    font-size: 1.2rem;
-  }
-}
-
-.form-wrapper {
-  max-width: 380px;
-  margin: 0 auto;
-}
-
-.ant-form-item-label {
-  line-height: 1;
-  font-size: 1rem;
-
-  label {
-    margin: 0 0 0.2rem 0;
-    line-height: 1;
-  }
-}
-
-.ant-form-item {
-  line-height: 1;
-  margin: 0 0 0.8rem 0;
-}
-
-.login-form-forgot {
-  float: right;
-}
-
-.form-button {
-  width: 100%;
-}
-
-.ant-upload.ant-upload-select-picture-card{
-  width: 100%;
-  height: 100%;
-  margin-bottom: -1rem;
-}
-
-.muted {
-  color: #666;
-}
-
-.login-link {
-  color: $black;
-
-  &:hover {
-    color: inherit;
-    text-decoration: none;
-  }
-}
-
-//Layouts
-.ant-layout-header {
-  height: 3.5rem;
-  line-height: 3.5rem;
-  padding: 0;
-
-  ul {
-    height: 100%;
-
-    a {
-      height: 100%;
-      line-height: 3.5rem;
-      text-decoration: none;
-    }
-  }
-}
-
-//Dashboard Page
-.content-wrapper {
+.form-container{
   min-width: 0;
-  max-width: 1200px;
+  max-width: 30rem;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  .ant-layout-sider-zero-width-trigger {
-    top: 0;
-    right: -2.05rem;
-    width: 2rem;
-    height: 2rem;
-    line-height: 1.9;
-  }
-
-  .ant-menu-item {
-    margin: 0;
-  }
-
-  .user-info {
+  margin: 5rem auto 1rem auto;
+  padding: 2rem;
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px -3px rgba(0,0,0,0.125);
+  @media (max-width: 991px){
     padding: 1rem;
-    background: $dark;
-    display: flex;
-    align-items: center;
-
-    &-pic {
-      flex: 0 0 2.5rem;
-    }
-
-    &-details {
-      flex: 1;
-      padding: 0 0 0 1rem;
-      &-name {
-        margin: 0;
-        font-weight: 600;
-        color: $white;
-      }
-
-      &-username {
-        margin: 0;
-        font-size: 0.7rem;
-        color: rgba(255,255,255,0.8);
-      }
+  }
+  .form-title{
+    text-align: center;
+    .secondary{
+      color: $activated;
     }
   }
-
-  .user-extra-info{
-    padding: 1rem 1rem 0 1rem;
-    &-text{
-      font-size: 0.75rem;
-      margin: 0.2rem;
-      color: rgba(0,0,0,0.5);
-      .highlighted{
-        font-weight: 600;
-        color: $black;
-      }
-    }
-  }
-
-  .ant-table-small{
+  .form-group{
     width: 100%;
-    overflow: hidden;
-    overflow-x: auto;
+    padding: 0.5rem 0;
+    label{
+      display: block;
+      margin: 0 0 0.5rem 0;
+      font-weight: 500;
+      font-size: 0.9rem;
+      i{
+        font-size: 1rem;
+        padding: 0 0.5rem;
+      }
+    }
+    input{
+      display: block;
+      padding: 0.75rem 0;
+      width: 100%;
+      text-indent: 1rem;
+      border-radius: 5px;
+      border: 1px solid #eee;
+      &:focus{
+        outline: none;
+        border: 1px solid $activated;
+      }
+    }
   }
-  .ant-table-thead>tr>th .ant-table-header-column{
-    white-space: nowrap;
-  }
-  .ant-table-tbody>tr>td{
-    white-space: nowrap;
+  .submit{
+    margin: 1rem 0 0 0;
+    border: none;
+    width: 100%;
+    background: $activated;
+    color: $white;
+    padding: 0.75rem 1rem;
   }
 }

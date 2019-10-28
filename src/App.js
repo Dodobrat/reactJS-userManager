@@ -1,38 +1,41 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
-import Navigation from "./components/layouts/Navigation";
-import Footer from "./components/layouts/Footer";
-import LoginPage from "./components/pages/LoginPage";
-import RegisterPage from "./components/pages/RegisterPage";
-import ForgotPwdPage from "./components/pages/ForgotPwdPage";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Footer from "./components/layout/Footer";
 import NotFound from "./components/pages/NotFound";
-import DashboardPage from "./components/pages/DashboardPage";
-import EditPage from "./components/pages/EditPage";
-import { Layout } from 'antd';
-const { Content } = Layout;
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Reset from "./components/auth/Reset";
+import Dashboard from "./components/pages/Dashboard";
+import Edit from "./components/pages/Edit";
+import AuthState from "./context/auth/AuthState";
+import setAuthToken from "./utils/setAuthToken";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import AlertState from "./context/alert/AlertState";
+import Alerts from "./components/layout/Alerts";
 
-class App extends React.Component {
-    render() {
-        return (
-            <Router>
-                <Layout className="layout">
-                    <Navigation/>
-                    <Content>
-                        <Switch>
-                            <Redirect exact from="/" to="/login"/>
-                            <Route path="/login" component={LoginPage}/>
-                            <Route path="/register" component={RegisterPage}/>
-                            <Route path="/forgot" component={ForgotPwdPage}/>
-                            <Route path="/dashboard" component={DashboardPage}/>
-                            <Route path="/edit" component={EditPage}/>
-                            <Route path="*" component={NotFound}/>
-                        </Switch>
-                    </Content>
-                    <Footer/>
-                </Layout>
-            </Router>
-        )
-    }
+if (localStorage.token) {
+    setAuthToken(localStorage.token);
 }
+
+const App = () => {
+    return (
+        <AuthState>
+            <AlertState>
+                <Router>
+                    <Alerts/>
+                    <Switch>
+                        <PrivateRoute exact path="/" component={Dashboard}/>
+                        <PrivateRoute exact path="/edit/:id" component={Edit}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/forgot" component={Reset}/>
+                        <Route component={NotFound}/>
+                    </Switch>
+                    <Footer/>
+                </Router>
+            </AlertState>
+        </AuthState>
+    )
+};
 
 export default App;
