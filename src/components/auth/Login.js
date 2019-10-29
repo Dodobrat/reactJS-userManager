@@ -1,7 +1,8 @@
-import React, {useState,useContext, useEffect} from 'react';
+import React, {useState,useContext, useEffect, Fragment} from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import {Link} from "react-router-dom";
+import Footer from "../layout/Footer";
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
@@ -46,30 +47,33 @@ const Login = (props) => {
     };
 
     return (
-        <div className='form-container'>
-            <h1 className='form-title'>Account <span className="secondary">Login</span></h1>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">
-                        <i className="far fa-envelope-open muted"/> E-mail
-                    </label>
-                    <input type="email" name="email" value={email} onChange={onChange} required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">
-                        <i className="fas fa-lock muted"/> Password
-                    </label>
-                    <input type="password" name="password" value={password} onChange={onChange} required/>
-                </div>
-                <div className="form-group">
-                    <label>
-                        <i className="fas fa-key muted"/> <Link to='/forgot' className='link'> Forgot Password</Link>
-                    </label>
-                </div>
-                <input type="submit" value="Login" className="submit"/>
-                <p className='muted'>Don't have an account? <Link to='/register' className='link'>Register</Link></p>
-            </form>
-        </div>
+        <Fragment>
+            <div className='form-container'>
+                <h1 className='form-title'>Account <span className="secondary">Login</span></h1>
+                <form onSubmit={onSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email">
+                            <i className="far fa-envelope-open muted"/> E-mail
+                        </label>
+                        <input type="email" name="email" value={email} onChange={onChange} required/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">
+                            <i className="fas fa-lock muted"/> Password
+                        </label>
+                        <input type="password" name="password" value={password} onChange={onChange} required/>
+                    </div>
+                    <div className="form-group">
+                        <label>
+                            <i className="fas fa-key muted"/> <Link to='/forgot' className='link'> Forgot Password</Link>
+                        </label>
+                    </div>
+                    <input type="submit" value="Login" className="submit"/>
+                    <p className='muted'>Don't have an account? <Link to='/register' className='link'>Register</Link></p>
+                </form>
+            </div>
+            <Footer/>
+        </Fragment>
     );
 };
 

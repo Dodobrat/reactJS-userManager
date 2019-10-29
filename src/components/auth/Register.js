@@ -1,7 +1,8 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, Fragment} from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import {Link} from "react-router-dom";
+import Footer from "../layout/Footer";
 
 const Register = (props) => {
 
@@ -52,31 +53,34 @@ const Register = (props) => {
     };
 
     return (
-        <div className='form-container'>
-            <h1 className='form-title'>Account <span className="secondary">Register</span></h1>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">
-                        <i className="far fa-envelope-open muted"/> E-mail
-                    </label>
-                    <input type="email" name="email" value={email} onChange={onChange} required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">
-                        <i className="fas fa-lock muted"/> Password
-                    </label>
-                    <input type="password" name="password" value={password} onChange={onChange} required minLength="6"/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirm_password">
-                        <i className="fas fa-lock muted"/> Confirm Password
-                    </label>
-                    <input type="password" name="confirm_password" value={confirm_password} onChange={onChange} required />
-                </div>
-                <input type="submit" value="Register" className="submit"/>
-                <p className='muted'>Already have an account? <Link to='/login' className='link'>Login</Link></p>
-            </form>
-        </div>
+        <Fragment>
+            <div className='form-container'>
+                <h1 className='form-title'>Account <span className="secondary">Register</span></h1>
+                <form onSubmit={onSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email">
+                            <i className="far fa-envelope-open muted"/> E-mail
+                        </label>
+                        <input type="email" name="email" value={email} onChange={onChange} required/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">
+                            <i className="fas fa-lock muted"/> Password
+                        </label>
+                        <input type="password" name="password" value={password} onChange={onChange} required minLength="6"/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="confirm_password">
+                            <i className="fas fa-lock muted"/> Confirm Password
+                        </label>
+                        <input type="password" name="confirm_password" value={confirm_password} onChange={onChange} required />
+                    </div>
+                    <input type="submit" value="Register" className="submit"/>
+                    <p className='muted'>Already have an account? <Link to='/login' className='link'>Login</Link></p>
+                </form>
+            </div>
+            <Footer/>
+        </Fragment>
     );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Footer from "./components/layout/Footer";
 import NotFound from "./components/pages/NotFound";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
@@ -22,18 +21,15 @@ const App = () => {
         <AuthState>
             <AlertState>
                 <Router>
-                    <div className="container">
-                        <Alerts/>
-                        <Switch>
-                            <PrivateRoute exact path="/" component={Dashboard}/>
-                            <PrivateRoute exact path="/edit/:id" component={Edit}/>
-                            <Route exact path="/login" component={Login}/>
-                            <Route exact path="/register" component={Register}/>
-                            <Route exact path="/forgot" component={Reset}/>
-                            <Route component={NotFound}/>
-                        </Switch>
-                        <Footer/>
-                    </div>
+                    <Alerts/>
+                    <Switch>
+                        <Route exact path="/" component={Dashboard}/>
+                        <PrivateRoute exact path="/edit/:id" component={Edit}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/forgot" component={Reset}/>
+                        <Route component={NotFound}/>
+                    </Switch>
                 </Router>
             </AlertState>
         </AuthState>

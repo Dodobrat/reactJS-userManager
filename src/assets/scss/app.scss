@@ -142,3 +142,19 @@ body {
     }
   }
 }
+
+.content-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  .side-wrapper{
+    flex: 0 0 20rem;
+    height: 100vh;
+    background: $dark;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .main-wrapper{
+    flex: 1;
+  }
+}
