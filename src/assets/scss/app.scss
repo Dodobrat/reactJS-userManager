@@ -1,6 +1,5 @@
 //Font Awesome
 @import '~@fortawesome/fontawesome-free/css/all.css';
-
 //Typography
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap');
 
@@ -26,7 +25,7 @@ $cyan: #6cb2eb;
 $fast-anim: 0.1s ease-in-out;
 
 //Globals
-html{
+html {
   font-size: 14px;
 }
 
@@ -40,46 +39,51 @@ body {
   background: #eee;
 }
 
-.muted{
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+.muted {
   color: #888;
 }
 
-.link{
+.link {
   text-decoration: none;
   color: $activated;
 }
 
-.container{
+.container {
   max-width: 1140px;
   min-width: 0;
   width: 100%;
   margin: 0 auto;
 }
 
-.alert{
+.alert {
   position: fixed;
   top: 2rem;
   right: 2rem;
   display: block;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0 3px 10px -2px rgba(0,0,0,0.125);
-  i{
+  box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.125);
+
+  i {
     padding: 0 0.5rem 0 0;
   }
 }
 
-.alert-danger{
+.alert-danger {
   background: $red;
   color: $white;
 }
 
-.alert-success{
+.alert-success {
   background: $green;
   color: $white;
 }
 
-.form-container{
+.form-container {
   min-width: 0;
   max-width: 30rem;
   width: 100%;
@@ -87,43 +91,56 @@ body {
   padding: 2rem;
   background: $white;
   border-radius: 5px;
-  box-shadow: 0 3px 10px -3px rgba(0,0,0,0.125);
-  @media (max-width: 991px){
+  box-shadow: 0 3px 10px -3px rgba(0, 0, 0, 0.125);
+  @media (max-width: 991px) {
     padding: 1rem;
   }
-  .form-title{
+
+  .form-title {
     text-align: center;
-    .secondary{
+
+    .secondary {
       color: $activated;
     }
   }
-  .form-group{
+
+  .form-group {
     width: 100%;
     padding: 0.5rem 0;
-    label{
+
+    label {
       display: block;
       margin: 0 0 0.5rem 0;
       font-weight: 500;
       font-size: 0.9rem;
-      i{
+
+      i {
         font-size: 1rem;
         padding: 0 0.5rem;
       }
     }
-    input{
+
+    input,textarea {
       display: block;
       padding: 0.75rem 0;
       width: 100%;
       text-indent: 1rem;
       border-radius: 5px;
       border: 1px solid #eee;
-      &:focus{
+      resize: none;
+      &[type="file"]{
+        text-indent: 0;
+        padding: 0.75rem;
+      }
+
+      &:focus {
         outline: none;
         border: 1px solid $activated;
       }
     }
   }
-  .submit{
+
+  .submit {
     transition: $fast-anim;
     margin: 1rem 0 0 0;
     border: none;
@@ -133,28 +150,228 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 5px;
     cursor: pointer;
-    &:focus{
+
+    &:focus {
       outline: none;
     }
-    &:active{
+
+    &:active {
       transition: $fast-anim;
       transform: scale(0.95);
     }
   }
 }
 
-.content-wrapper{
+.content-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  .side-wrapper{
-    flex: 0 0 20rem;
-    height: 100vh;
+
+  .side-wrapper {
+    &.expanded {
+      flex: 0 0 20rem;
+      @media (max-width: 991px) {
+        flex: 0 0 100vw;
+      }
+    }
+
+    &.collapsed {
+      flex: 0 0 0;
+    }
+
+    min-height: 100vh;
     background: $dark;
     overflow: hidden;
     overflow-y: auto;
+
+    .sidebar-trigger {
+      position: absolute;
+      top: 0;
+      width: 2rem;
+      height: 2rem;
+      background: $activated;
+      border: none;
+      color: $white;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .sidebar-title {
+      margin: 0;
+      padding: 1rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: $white;
+      text-align: center;
+      a{
+        color: $white;
+        text-decoration: none;
+        &:hover{
+          text-decoration: underline;
+        }
+        span {
+          color: $activated;
+        }
+      }
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      margin: 0 0 1.5rem 0;
+
+      .avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+      }
+
+      .user-card-details {
+        display: flex;
+        flex-direction: column;
+
+        .user-card-item {
+          margin: 0;
+          padding: 0.25rem 1rem;
+          color: $white;
+
+          &.username {
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+
+    .user-item {
+      margin: 0;
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      color: $white;
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    .user-actions {
+      padding: 1rem 2rem;
+      a{
+        text-decoration: none;
+        button {
+          transition: $fast-anim;
+          display: block;
+          width: 100%;
+          padding: 0.5rem;
+          margin: 0.5rem 0;
+          border: none;
+          border-radius: 0.25rem;
+
+          &:focus {
+            outline: none;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:active {
+            transition: $fast-anim;
+            transform: scale(0.9);
+          }
+
+          &.edit {
+            background: $activated;
+            color: $white;
+            a{
+              color: $white;
+              text-decoration: none;
+            }
+          }
+
+          &.logout {
+            background: $red;
+            color: $white;
+          }
+
+          i {
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
   }
-  .main-wrapper{
+
+  .main-wrapper {
     flex: 1;
+    @media (max-width: 991px) {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+
+    .user-bio {
+      padding: 2rem 3rem;
+      @media (max-width: 991px) {
+        padding: 2rem 1rem;
+      }
+    }
+
+    .table-container{
+      display: block;
+      overflow-x: auto;
+      padding: 0 3rem;
+      @media (max-width: 991px) {
+        padding: 0 1rem;
+      }
+      table{
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        td, th{
+          border: 1px solid rgba(0,0,0,0.125);
+          padding: 0.5rem;
+          white-space: nowrap;
+        }
+        tbody{
+          tr:nth-child(odd){
+            background: #e1e1e1;
+          }
+        }
+      }
+      .pagination{
+        padding: 1rem 0;
+        button{
+          transition: $fast-anim;
+          margin: 0 0.5rem 0.5rem 0;
+          border: 1px solid rgba(0,0,0,0.2);
+          border-radius: 5px;
+          width: 2rem;
+          height: 2rem;
+          cursor: pointer;
+          &:focus{
+            outline: none;
+          }
+          &:active{
+            transition: $fast-anim;
+            transform: scale(0.9);
+          }
+          &:last-child{
+            margin: 0;
+          }
+          &.current{
+            background: $activated;
+            color: $white;
+          }
+        }
+      }
+    }
   }
 }

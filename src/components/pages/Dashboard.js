@@ -1,24 +1,14 @@
-import React, {useContext, useEffect} from "react";
-import AuthContext from '../../context/auth/authContext';
+import React from "react";
 import Footer from "../layout/Footer";
+import UserSidebar from "../users/UserSidebar";
+import UserActivity from "../users/UserActivity";
 
 const Dashboard = () => {
-    const authContext = useContext(AuthContext);
-
-    const {isAuthenticated, logout, user} = authContext;
-
-    useEffect(() => {
-        authContext.loadUser();
-        //eslint-disable-next-line
-    }, []);
-
     return (
         <div className='content-wrapper'>
-            <div className="side-wrapper">
-                Sidebar
-            </div>
+            <UserSidebar/>
             <div className="main-wrapper">
-                Dashboard
+                <UserActivity/>
                 <Footer/>
             </div>
         </div>
