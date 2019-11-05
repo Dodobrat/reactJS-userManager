@@ -15,7 +15,12 @@ const UserActivity = () => {
             <div className="user-bio">
                 <h2>About Me</h2>
                 <p>{user && user.about ? user.about : 'No Bio found'}</p>
+                <br/>
+                <hr/>
             </div>
+
+            <h2 className="user-activity">User Activity Table</h2>
+
             <div className="table-container">
                 <table>
                     <thead>
