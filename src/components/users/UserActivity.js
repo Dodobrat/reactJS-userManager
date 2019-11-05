@@ -7,7 +7,6 @@ const UserActivity = () => {
     const {user} = authContext;
 
     useEffect(() => {
-        authContext.loadUser();
         //eslint-disable-next-line
     }, []);
 

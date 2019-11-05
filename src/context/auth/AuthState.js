@@ -11,15 +11,20 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    SET_CURRENT,
+    CLEAR_CURRENT,
+    UPDATE_SUCCESS,
+    DELETE_SUCCESS
 } from '../types';
 
 const AuthState = props => {
     const initialState = {
         token: localStorage.getItem('token'),
-        isAuthenticated: null,
+        isAuthenticated: false,
         loading: true,
         user: null,
+        current: null,
         error: null
     };
 
@@ -64,7 +69,7 @@ const AuthState = props => {
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response.data.msg
+                payload: err.response.data.error
             })
         }
     };
@@ -89,9 +94,55 @@ const AuthState = props => {
         } catch (err) {
             dispatch({
                 type: LOGIN_FAIL,
-                payload: err.response.data.msg
+                payload: err.response.data.error
             })
         }
+    };
+
+    //Set Current User
+    const setCurrent = (user) => {
+        dispatch({
+            type: SET_CURRENT,
+            payload: user
+        });
+    };
+
+    //Clear Current User
+    const clearCurrent = () => {
+        dispatch({
+            type: CLEAR_CURRENT
+        });
+    };
+
+    //Update User
+    const updateUser = async (user) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        try {
+            const res = await axios.put(`/api/users/${user.id}`, user, config);
+
+            dispatch({
+                type: UPDATE_SUCCESS,
+                payload: res.data
+            });
+
+            clearCurrent();
+            loadUser();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    //Delete User
+    const deleteUser = (id) => {
+        dispatch({
+            type: DELETE_SUCCESS,
+            payload: id
+        });
     };
 
     // Logout
@@ -115,11 +166,16 @@ const AuthState = props => {
                 isAuthenticated: state.isAuthenticated,
                 loading: state.loading,
                 user: state.user,
+                current: state.current,
                 error: state.error,
                 register,
                 login,
                 logout,
                 loadUser,
+                updateUser,
+                deleteUser,
+                setCurrent,
+                clearCurrent,
                 clearErrors
             }}>
             {props.children}

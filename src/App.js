@@ -5,7 +5,6 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Dashboard from "./components/pages/Dashboard";
-import Edit from "./components/pages/Edit";
 import AuthState from "./context/auth/AuthState";
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -24,7 +23,6 @@ const App = () => {
                     <Alerts/>
                     <Switch>
                         <PrivateRoute exact path="/" component={Dashboard}/>
-                        <PrivateRoute exact path="/edit/:id" component={Edit}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/forgot" component={Reset}/>
