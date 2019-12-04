@@ -27,7 +27,7 @@ const Reset = (props) => {
         email: ''
     });
 
-    const { email} = user;
+    const { email } = user;
 
     const onChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value });
@@ -38,9 +38,7 @@ const Reset = (props) => {
         if (email === ''){
             setAlert('Please enter all fields', 'danger');
         }else{
-            reset({
-                email
-            })
+            reset({email})
         }
     };
 

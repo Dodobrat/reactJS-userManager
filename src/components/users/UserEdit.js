@@ -1,15 +1,15 @@
 import React, {useState, useContext, useEffect} from 'react';
 import AuthContext from "../../context/auth/authContext";
+import {Link} from "react-router-dom";
 
 const UserEdit = () => {
     const authContext = useContext(AuthContext);
 
-    const { current, clearCurrent, setCurrent, updateUser} = authContext;
+    const { user, updateUser, deleteUser} = authContext;
 
     useEffect(() => {
-        setCurrent(current);
-        if (current !== null){
-            setUpdates(current);
+        if (user !== null){
+            setUpdates(user);
         }
         //eslint-disable-next-line
     }, []);
@@ -40,12 +40,8 @@ const UserEdit = () => {
         setUpdates({...updates, [e.target.name]: e.target.value });
     };
 
-    const onCancel = () => {
-        clearCurrent();
-    };
-
     const onDelete = () => {
-        console.log('delete and logout');
+        deleteUser(user.id);
     };
 
     const onSubmit = (e) => {
@@ -107,7 +103,7 @@ const UserEdit = () => {
                         <input type="email" name="email" value={email || ''} onChange={onChange} required/>
                     </div>
                     <input type="submit" value="Save Changes" className="submit" onClick={onSubmit}/>
-                    <button className="submit cancel" onClick={onCancel}>Cancel Changes</button>
+                    <Link className="submit cancel" to='/'>Cancel Changes</Link>
                     <button className="submit delete" onClick={onDelete}>Delete Account</button>
                 </form>
             </div>

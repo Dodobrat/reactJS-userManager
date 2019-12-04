@@ -21,8 +21,30 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
+$twitter: #1DA1F2;
+$facebook: #1777F2;
+
+$bg: #f1f1f1;
+$bg-card: #fff;
+
+$shadow: 0 5px 10px -4px rgba(0,0,0,0.15);
+$radius: 5px;
+
 //Transitions
-$fast-anim: 0.1s ease-in-out;
+$fast-anim: all 0.1s ease-in-out;
+
+//Mixins
+@mixin button{
+  transition: $fast-anim;
+  cursor: pointer;
+  &:focus{
+    outline: none;
+  }
+  &:active{
+    transition: $fast-anim;
+    transform: scale(0.975);
+  }
+}
 
 //Globals
 html {
@@ -36,7 +58,7 @@ body {
   font-family: $family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #eee;
+  background: $bg;
 }
 
 *, ::after, ::before {
@@ -62,10 +84,11 @@ body {
 .alert {
   position: fixed;
   top: 2rem;
-  right: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: block;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: $radius;
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.125);
 
   i {
@@ -85,16 +108,13 @@ body {
 
 .form-container {
   min-width: 0;
-  max-width: 30rem;
+  max-width: 25rem;
   width: 100%;
   margin: 5rem auto 1rem auto;
-  padding: 2rem;
-  background: $white;
-  border-radius: 5px;
-  box-shadow: 0 3px 10px -3px rgba(0, 0, 0, 0.125);
-  @media (max-width: 991px) {
-    padding: 1rem;
-  }
+  padding: 1.5rem;
+  background: $bg-card;
+  border-radius: $radius;
+  box-shadow: $shadow;
 
   .form-title {
     text-align: center;
@@ -141,7 +161,6 @@ body {
   }
 
   .submit {
-    transition: $fast-anim;
     margin: 1rem 0 0 0;
     border: none;
     width: 100%;
@@ -149,7 +168,7 @@ body {
     color: $white;
     padding: 0.75rem 1rem;
     border-radius: 5px;
-    cursor: pointer;
+    @include button();
     &.cancel{
       background: #e1e1e1;
       color: $black;
@@ -157,14 +176,50 @@ body {
     &.delete{
       background: $red;
     }
+  }
 
-    &:focus {
-      outline: none;
+  //SOCIAL BUTTONS
+
+  .social-separator{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    &:before, &:after{
+      content: "";
+      flex: 1;
+      height: 2px;
+      margin: 0 0.5rem;
+      background: $bg;
     }
+  }
 
-    &:active {
-      transition: $fast-anim;
-      transform: scale(0.95);
+  .social-link{
+    button{
+      margin: 1rem 0 0 0;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      border-radius: $radius;
+      background: none;
+      border: none;
+      @include button();
+    }
+    &.goo{
+      button{
+        background: $bg;
+      }
+    }
+    &.fb{
+      button{
+        color: $bg-card;
+        background: $facebook;
+      }
+    }
+    &.tw{
+      button{
+        color: $bg-card;
+        background: $twitter;
+      }
     }
   }
 }
@@ -358,20 +413,14 @@ body {
       .pagination{
         padding: 1rem 0;
         button{
-          transition: $fast-anim;
           margin: 0 0.5rem 0.5rem 0;
           border: 1px solid rgba(0,0,0,0.2);
           border-radius: 5px;
           width: 2rem;
           height: 2rem;
           cursor: pointer;
-          &:focus{
-            outline: none;
-          }
-          &:active{
-            transition: $fast-anim;
-            transform: scale(0.9);
-          }
+          @include button();
+
           &:last-child{
             margin: 0;
           }

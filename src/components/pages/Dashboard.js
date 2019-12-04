@@ -3,12 +3,11 @@ import Footer from "../layout/Footer";
 import UserSidebar from "../users/UserSidebar";
 import UserActivity from "../users/UserActivity";
 import AuthContext from "../../context/auth/authContext";
-import UserEdit from "../users/UserEdit";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
 
-    const { current, loadUser} = authContext;
+    const { loadUser} = authContext;
 
     useEffect(() => {
         loadUser();
@@ -19,7 +18,7 @@ const Dashboard = () => {
         <div className='content-wrapper'>
             <UserSidebar/>
             <div className="main-wrapper">
-                {current ? <UserEdit/> : <UserActivity/>}
+                <UserActivity/>
                 <Footer/>
             </div>
         </div>

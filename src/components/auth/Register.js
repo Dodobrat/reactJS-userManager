@@ -78,6 +78,24 @@ const Register = (props) => {
                     <input type="submit" value="Register" className="submit"/>
                     <p className='muted'>Already have an account? <Link to='/login' className='link'>Login</Link></p>
                 </form>
+                <div className="social-separator">
+                    or
+                </div>
+                <Link to='/test' className='social-link goo'>
+                    <button>
+                        Sign up with Google
+                    </button>
+                </Link>
+                <Link to='/test' className='social-link fb'>
+                    <button>
+                        Sign up with Facebook
+                    </button>
+                </Link>
+                <Link to='/test' className='social-link tw'>
+                    <button>
+                        Sign up with Twitter
+                    </button>
+                </Link>
             </div>
             <Footer/>
         </Fragment>

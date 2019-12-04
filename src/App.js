@@ -10,6 +10,8 @@ import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import AlertState from "./context/alert/AlertState";
 import Alerts from "./components/layout/Alerts";
+import Edit from "./components/pages/Edit";
+import LogState from "./context/log/LogState";
 
 if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -18,18 +20,21 @@ if (localStorage.token) {
 const App = () => {
     return (
         <AuthState>
-            <AlertState>
-                <Router>
-                    <Alerts/>
-                    <Switch>
-                        <PrivateRoute exact path="/" component={Dashboard}/>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/forgot" component={Reset}/>
-                        <Route component={NotFound}/>
-                    </Switch>
-                </Router>
-            </AlertState>
+            <LogState>
+                <AlertState>
+                    <Router>
+                        <Alerts/>
+                        <Switch>
+                            <PrivateRoute exact path="/" component={Dashboard}/>
+                            <PrivateRoute exact path="/edit" component={Edit}/>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/register" component={Register}/>
+                            <Route exact path="/forgot" component={Reset}/>
+                            <Route component={NotFound}/>
+                        </Switch>
+                    </Router>
+                </AlertState>
+            </LogState>
         </AuthState>
     )
 };

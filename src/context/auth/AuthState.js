@@ -11,11 +11,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS,
-    SET_CURRENT,
-    CLEAR_CURRENT,
-    UPDATE_SUCCESS,
-    DELETE_SUCCESS
+    CLEAR_ERRORS, UPDATE_SUCCESS, DELETE_SUCCESS
 } from '../types';
 
 const AuthState = props => {
@@ -24,7 +20,6 @@ const AuthState = props => {
         isAuthenticated: false,
         loading: true,
         user: null,
-        current: null,
         error: null
     };
 
@@ -99,21 +94,6 @@ const AuthState = props => {
         }
     };
 
-    //Set Current User
-    const setCurrent = (user) => {
-        dispatch({
-            type: SET_CURRENT,
-            payload: user
-        });
-    };
-
-    //Clear Current User
-    const clearCurrent = () => {
-        dispatch({
-            type: CLEAR_CURRENT
-        });
-    };
-
     //Update User
     const updateUser = async (user) => {
         const config = {
@@ -130,7 +110,6 @@ const AuthState = props => {
                 payload: res.data
             });
 
-            clearCurrent();
             loadUser();
         } catch (err) {
             console.log(err);
@@ -166,7 +145,6 @@ const AuthState = props => {
                 isAuthenticated: state.isAuthenticated,
                 loading: state.loading,
                 user: state.user,
-                current: state.current,
                 error: state.error,
                 register,
                 login,
@@ -174,8 +152,6 @@ const AuthState = props => {
                 loadUser,
                 updateUser,
                 deleteUser,
-                setCurrent,
-                clearCurrent,
                 clearErrors
             }}>
             {props.children}

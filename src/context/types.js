@@ -9,6 +9,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
-export const SET_CURRENT = 'SET_CURRENT';
-export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const FILTER_LOGS = 'FILTER_LOGS';

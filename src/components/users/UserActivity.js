@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import AuthContext from "../../context/auth/authContext";
+import LogContext from "../../context/log/logContext";
 
 const UserActivity = () => {
     const authContext = useContext(AuthContext);
+    const logContext = useContext(LogContext);
 
     const {user} = authContext;
+    const {logs} = logContext;
 
     useEffect(() => {
         //eslint-disable-next-line
@@ -34,28 +37,16 @@ const UserActivity = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>Yes</td>
-                        <td>192.168.0.1</td>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>31.12.2019 16:27:47</td>
-                        <td>Mobile</td>
-                    </tr><tr>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>Yes</td>
-                        <td>192.168.0.1</td>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>31.12.2019 16:27:47</td>
-                        <td>Mobile</td>
-                    </tr><tr>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>Yes</td>
-                        <td>192.168.0.1</td>
-                        <td>31.12.2019 15:27:47</td>
-                        <td>31.12.2019 16:27:47</td>
-                        <td>Mobile</td>
-                    </tr>
+                    {logs.map(log => {
+                        return <tr key={log.id}>
+                            <td>{log.attempt_date}</td>
+                            <td>{log.succeeded}</td>
+                            <td>{log.ip}</td>
+                            <td>{log.login_date}</td>
+                            <td>{log.logout_date}</td>
+                            <td>{log.device}</td>
+                        </tr>
+                    })}
                     </tbody>
                 </table>
                 <div className="pagination">

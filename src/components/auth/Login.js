@@ -1,4 +1,4 @@
-import React, {useState,useContext, useEffect, Fragment} from 'react';
+import React, {useState, useContext, useEffect, Fragment} from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import {Link} from "react-router-dom";
@@ -8,37 +8,37 @@ const Login = (props) => {
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext);
 
-    const { setAlert } = alertContext;
-    const { login, error, clearErrors, isAuthenticated } = authContext;
+    const {setAlert} = alertContext;
+    const {login, error, clearErrors, isAuthenticated} = authContext;
 
     useEffect(() => {
-        if (isAuthenticated){
+        if (isAuthenticated) {
             props.history.push('/');
         }
 
-        if (error){
+        if (error) {
             setAlert(error, 'danger');
             clearErrors();
         }
         //eslint-disable-next-line
-    },[error, isAuthenticated, props.history]);
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         email: '',
         password: '',
     });
 
-    const { email, password} = user;
+    const {email, password} = user;
 
     const onChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value });
+        setUser({...user, [e.target.name]: e.target.value});
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (email === '' || password === ''){
+        if (email === '' || password === '') {
             setAlert('Please enter all fields', 'danger');
-        }else{
+        } else {
             login({
                 email,
                 password
@@ -65,12 +65,32 @@ const Login = (props) => {
                     </div>
                     <div className="form-group">
                         <label>
-                            <i className="fas fa-key muted"/> <Link to='/forgot' className='link'> Forgot Password</Link>
+                            <i className="fas fa-key muted"/> <Link to='/forgot' className='link'> Forgot
+                            Password</Link>
                         </label>
                     </div>
                     <input type="submit" value="Login" className="submit"/>
-                    <p className='muted'>Don't have an account? <Link to='/register' className='link'>Register</Link></p>
+                    <p className='muted'>Don't have an account? <Link to='/register' className='link'>Register</Link>
+                    </p>
                 </form>
+                <div className="social-separator">
+                    or
+                </div>
+                <Link to='/test' className='social-link goo'>
+                    <button>
+                        Sign in with Google
+                    </button>
+                </Link>
+                <Link to='/test' className='social-link fb'>
+                    <button>
+                        Sign in with Facebook
+                    </button>
+                </Link>
+                <Link to='/test' className='social-link tw'>
+                    <button>
+                        Sign in with Twitter
+                    </button>
+                </Link>
             </div>
             <Footer/>
         </Fragment>

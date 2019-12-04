@@ -7,8 +7,6 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     CLEAR_ERRORS,
-    SET_CURRENT,
-    CLEAR_CURRENT,
     UPDATE_SUCCESS,
     DELETE_SUCCESS
 } from "../types";
@@ -35,6 +33,7 @@ export default (state, action) => {
         case AUTH_ERROR:
         case LOGIN_FAIL:
         case LOGOUT:
+        case DELETE_SUCCESS:
             localStorage.removeItem('token');
             return {
                 ...state,
@@ -42,27 +41,12 @@ export default (state, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                current: null,
                 error: action.payload
-            };
-        case SET_CURRENT:
-            return {
-                ...state,
-                current: action.payload
-            };
-        case CLEAR_CURRENT:
-            return {
-                ...state,
-                current: null
             };
         case UPDATE_SUCCESS:
             return {
                 ...state,
                 user: (state.user.id === action.payload.id ? action.payload : state.user)
-            };
-        case DELETE_SUCCESS:
-            return {
-                ...state
             };
         case CLEAR_ERRORS:
             return {
