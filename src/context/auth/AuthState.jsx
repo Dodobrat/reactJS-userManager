@@ -137,7 +137,7 @@ const AuthState = (props) => {
   const login = async (formData) => {
     try {
       const res = await axios.post('/api/auth', formData, config);
-
+      console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -150,6 +150,17 @@ const AuthState = (props) => {
         payload: err.response.data.error,
       });
     }
+  };
+
+  const oauthAuthenticate = async (token) => {
+    const oauthToken = {
+      token: token
+    };
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: oauthToken,
+    });
   };
 
   // Update User
@@ -225,6 +236,7 @@ const AuthState = (props) => {
         clearAlerts,
         getCountry,
         restoreUser,
+        oauthAuthenticate
       }}
     >
       {children}
