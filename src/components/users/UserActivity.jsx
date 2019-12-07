@@ -16,13 +16,11 @@ const UserActivity = () => {
   return (
     <div className="container">
       <div className="user-bio">
-        <h2>About Me</h2>
+        <div className="fancy-title">About Me</div>
         <p>{user && user.about ? user.about : 'No Bio found'}</p>
-        <br />
-        <hr />
       </div>
 
-      <h2 className="user-activity">User Activity Table</h2>
+      <div className="fancy-title spaced-in">User Activity Table</div>
 
       <div className="table-container">
         <table>

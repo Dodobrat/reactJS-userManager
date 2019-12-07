@@ -12,10 +12,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
+  CLEAR_ALERTS,
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   DELETE_SUCCESS,
+  DELETE_FAIL, COUNTRIES_LOADED, COUNTRIES_ERROR, GET_COUNTRY, GET_COUNTRY_ERROR,
 } from '../types';
 
 const AuthState = (props) => {
@@ -25,6 +26,9 @@ const AuthState = (props) => {
     loading: true,
     user: null,
     error: null,
+    success: null,
+    countries: null,
+    userCountry: null
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -44,6 +48,49 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: AUTH_ERROR,
+      });
+    }
+  };
+
+  // Load Countries
+  const loadCountries = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/api/users/countries', config);
+      // console.log(res);
+      dispatch({
+        type: COUNTRIES_LOADED,
+        payload: res.data.countries,
+      });
+    } catch (err) {
+      dispatch({
+        type: COUNTRIES_ERROR,
+      });
+    }
+  };
+
+  // Get Country
+  const getCountry = async (id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get(`/api/users/country/${id}`, config);
+      dispatch({
+        type: GET_COUNTRY,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_COUNTRY_ERROR,
       });
     }
   };
@@ -124,11 +171,26 @@ const AuthState = (props) => {
   };
 
   // Delete User
-  const deleteUser = (id) => {
-    dispatch({
-      type: DELETE_SUCCESS,
-      payload: id,
-    });
+  const deleteUser = async (id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.delete(`/api/users/${id}`, config);
+
+      dispatch({
+        type: DELETE_SUCCESS,
+        payload: res.data.success,
+      });
+    } catch (err) {
+      dispatch({
+        type: DELETE_FAIL,
+        payload: err.response.data.error,
+      });
+    }
   };
 
   // Logout
@@ -139,9 +201,9 @@ const AuthState = (props) => {
   };
 
   // Clear Errors
-  const clearErrors = () => {
+  const clearAlerts = () => {
     dispatch({
-      type: CLEAR_ERRORS,
+      type: CLEAR_ALERTS,
     });
   };
 
@@ -155,13 +217,18 @@ const AuthState = (props) => {
         loading: state.loading,
         user: state.user,
         error: state.error,
+        success: state.success,
+        countries: state.countries,
+        userCountry: state.userCountry,
         register,
         login,
         logout,
         loadUser,
         updateUser,
+        loadCountries,
         deleteUser,
-        clearErrors,
+        clearAlerts,
+        getCountry
       }}
     >
       {children}

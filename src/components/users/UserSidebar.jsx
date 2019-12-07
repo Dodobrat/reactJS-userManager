@@ -11,13 +11,16 @@ const UserSidebar = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const {
-    isAuthenticated, logout, loadUser, user,
+    isAuthenticated, logout, loadUser, user, getCountry, userCountry
   } = authContext;
 
   useEffect(() => {
     loadUser();
+    if (user){
+      getCountry(user.countryId);
+    }
     // eslint-disable-next-line
-    }, []);
+    }, [user]);
 
   const onLogout = () => {
     logout();
@@ -44,42 +47,42 @@ const UserSidebar = (props) => {
           <div className="user-card-details">
             {(user && user.username !== null)
               ? <p className="user-card-item username">{user && user.username}</p> : ''}
-            <p className="user-card-item name">{(user && (user.first_name !== null || user.last_name !== null)) ? `${user.first_name} ${user.last_name}` : 'Guest'}</p>
+            <p className="user-card-item name">{(user && (user.firstName !== null || user.lastName !== null)) ? `${user.firstName} ${user.lastName}` : 'Guest'}</p>
           </div>
         </div>
         <p className="user-item email">
                     Email:
           <span>{user && user.email}</span>
         </p>
-        {(user && user.country_id !== null) ? (
+        {(user && user.countryId !== null && userCountry) ? (
           <p className="user-item nationality">
-                        Nationality:
-            <span>{user.country_id}</span>
+                        From:
+            <span>{userCountry.name}</span>
           </p>
         ) : ''}
-        {(user && user.birth_date !== null) ? (
+        {(user && user.birthDate !== null) ? (
           <p className="user-item birthday">
                         Birth date:
-            <span>{user.birth_date}</span>
+            <span>{user.birthDate}</span>
           </p>
         ) : ''}
         <div className="user-actions">
           {editing ? (
             <Link to="/">
-              <button type="button" className="edit">
+              <button type="button" className="action-btn def">
                 <i className="fas fa-home" />
                                 Home
               </button>
             </Link>
           ) : (
             <Link to="/edit">
-              <button type="button" className="edit">
+              <button type="button" className="action-btn def">
                 <i className="fas fa-edit" />
                                 Edit
               </button>
             </Link>
           )}
-          <button type="button" className="logout" onClick={onLogout}>
+          <button type="button" className="logout action-btn" onClick={onLogout}>
             <i className="fas fa-power-off" />
                         Logout
           </button>
@@ -95,8 +98,7 @@ const UserSidebar = (props) => {
       </button>
       <p className="sidebar-title">
         <Link to="/">
-                    User
-          {' '}
+          User
           <span>Manager</span>
         </Link>
       </p>

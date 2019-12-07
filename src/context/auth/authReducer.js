@@ -6,10 +6,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
+  CLEAR_ALERTS,
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   DELETE_SUCCESS,
+  DELETE_FAIL, COUNTRIES_LOADED, COUNTRIES_ERROR, GET_COUNTRY, GET_COUNTRY_ERROR,
 } from '../types';
 
 export default (state, action) => {
@@ -20,6 +21,11 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload,
+      };
+    case COUNTRIES_LOADED:
+      return {
+        ...state,
+        countries: action.payload,
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -34,7 +40,6 @@ export default (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-    case DELETE_SUCCESS:
       localStorage.removeItem('token');
       return {
         ...state,
@@ -44,20 +49,40 @@ export default (state, action) => {
         user: null,
         error: action.payload,
       };
+    case DELETE_SUCCESS:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+        success: action.payload,
+      };
     case UPDATE_SUCCESS:
       return {
         ...state,
         user: (state.user.id === action.payload.id ? action.payload : state.user),
       };
+    case GET_COUNTRY:
+      return {
+        ...state,
+        userCountry: action.payload,
+      };
+
     case UPDATE_FAIL:
+    case DELETE_FAIL:
+    case COUNTRIES_ERROR:
+    case GET_COUNTRY_ERROR:
       return {
         ...state,
         error: action.payload,
       };
-    case CLEAR_ERRORS:
+    case CLEAR_ALERTS:
       return {
         ...state,
         error: null,
+        success: null,
       };
     default:
       return state;

@@ -10,13 +10,13 @@ const Reset = () => {
 
   const { setAlert } = alertContext;
   const {
-    reset, error, clearErrors, isAuthenticated,
+    reset, error, clearAlerts, isAuthenticated,
   } = authContext;
 
   useEffect(() => {
     if (error) {
       setAlert(error, 'danger');
-      clearErrors();
+      clearAlerts();
     }
     // eslint-disable-next-line
     }, [error, isAuthenticated]);
@@ -54,14 +54,13 @@ const Reset = () => {
           <div className="form-group">
             <label htmlFor="email">
               <i className="far fa-envelope-open muted" />
-              {' '}
-                            E-mail
+              E-mail
             </label>
             <input type="email" name="email" value={email} onChange={onChange} required />
           </div>
           <input type="submit" value="Send Reset Link" className="submit" />
-          <p className="muted">
-                        Already have an account?
+          <p className="muted additional-actions">
+            Already have an account?
             <Link to="/login" className="link">Login</Link>
           </p>
         </form>

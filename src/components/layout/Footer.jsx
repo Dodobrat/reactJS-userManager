@@ -4,16 +4,13 @@ const Footer = () => {
   const date = new Date();
 
   return (
-    <footer style={{ textAlign: 'center', padding: '1rem' }}>
+    <footer>
       <span className="muted">
-©
-        { date.getFullYear() }
+        {date.getFullYear()}
       </span>
-      {' '}
-Deyan Bozhilov
+            Deyan Bozhilov
       <span className="muted">&</span>
-      {' '}
-Lyuben Krastev
+            Lyuben Krastev
     </footer>
   );
 };

@@ -10,13 +10,13 @@ const Register = () => {
 
   const { setAlert } = alertContext;
   const {
-    register, error, clearErrors, isAuthenticated,
+    register, error, clearAlerts, isAuthenticated,
   } = authContext;
 
   useEffect(() => {
     if (error) {
       setAlert(error, 'danger');
-      clearErrors();
+      clearAlerts();
     }
     // eslint-disable-next-line
     }, [error, isAuthenticated]);
@@ -55,24 +55,22 @@ const Register = () => {
   return (
     <>
       <div className="form-container">
-        <h1 className="form-title">
+        <p className="form-title">
                     Account
           <span className="secondary">Register</span>
-        </h1>
+        </p>
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="email">
               <i className="far fa-envelope-open muted" />
-              {' '}
-                            E-mail
+              E-mail
             </label>
             <input type="email" name="email" value={email} onChange={onChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="password">
               <i className="fas fa-lock muted" />
-              {' '}
-                            Password
+              Password
             </label>
             <input
               type="password"
@@ -86,8 +84,7 @@ const Register = () => {
           <div className="form-group">
             <label htmlFor="confirmPassword">
               <i className="fas fa-lock muted" />
-              {' '}
-                            Confirm Password
+              Confirm Password
             </label>
             <input
               type="password"
@@ -98,31 +95,40 @@ const Register = () => {
             />
           </div>
           <input type="submit" value="Register" className="submit" />
-          <p className="muted">
-                        Already have an account?
-            {' '}
-            {' '}
+          <p className="muted additional-actions">
+            Already have an account?
             <Link to="/login" className="link">Login</Link>
           </p>
         </form>
         <div className="social-separator">
                     or
         </div>
-        <Link to="/test" className="social-link goo">
-          <button type="button">
-                        Sign up with Google
-          </button>
-        </Link>
-        <Link to="/test" className="social-link fb">
-          <button type="button">
-                        Sign up with Facebook
-          </button>
-        </Link>
-        <Link to="/test" className="social-link tw">
-          <button type="button">
-                        Sign up with Twitter
-          </button>
-        </Link>
+        <div className="social-container">
+          <a
+            href="https://backend-304-coursework.herokuapp.com/api/users/google"
+            className="social-link goo"
+          >
+            <button type="button">
+              <img src="/img/google.png" alt="" />
+            </button>
+          </a>
+          <a
+            href="https://backend-304-coursework.herokuapp.com/api/users/facebook"
+            className="social-link fb"
+          >
+            <button type="button">
+              <i className="fab fa-facebook-f" />
+            </button>
+          </a>
+          <a
+            href="https://backend-304-coursework.herokuapp.com/api/users/twitter"
+            className="social-link tw"
+          >
+            <button type="button">
+              <i className="fab fa-twitter" />
+            </button>
+          </a>
+        </div>
       </div>
       <Footer />
     </>

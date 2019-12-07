@@ -1,12 +1,12 @@
 //Font Awesome
 @import '~@fortawesome/fontawesome-free/css/all.css';
 //Typography
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap');
 
-$family: 'Nunito Sans', sans-serif;
+$family: 'Montserrat', sans-serif;
 
 // Colors
-$activated: #1890FF;
+$activated: #EB7F23;
 $white: #fff;
 $black: #000;
 $dark: #343A40;
@@ -37,12 +37,76 @@ $fast-anim: all 0.1s ease-in-out;
 @mixin button{
   transition: $fast-anim;
   cursor: pointer;
+  border-radius: $radius;
+  border: none;
   &:focus{
     outline: none;
   }
   &:active{
     transition: $fast-anim;
     transform: scale(0.975);
+  }
+}
+
+@mixin alert{
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  padding: 1rem;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  i {
+    padding: 0 0.5rem 0 0;
+  }
+}
+
+@mixin form{
+  width: 100%;
+  padding: 0.25rem 0;
+  position: relative;
+  margin: 0;
+
+  label {
+    display: inline-block;
+    transform: translate(1rem,0.65rem);
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.9rem;
+    background: $white;
+    pointer-events: none;
+    padding: 0 0.5rem 0 0;
+    color: $dark;
+    i {
+      font-size: 1rem;
+      padding: 0 0.5rem;
+    }
+  }
+
+  input,textarea,select {
+    transition: $fast-anim;
+    display: block;
+    padding: 0.75rem 0;
+    width: 100%;
+    text-indent: 1rem;
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.15);
+    resize: none;
+    &[type="date"]{
+      text-indent: 0.5rem;
+      padding: 0.572rem 0;
+    }
+    &:focus{
+      transition: $fast-anim;
+      outline: none;
+      border: 2px solid $activated;
+    }
+  }
+
+  textarea{
+    padding: 0.75rem;
+    text-indent: 0.25rem;
   }
 }
 
@@ -59,6 +123,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $bg;
+  overflow-x: hidden;
 }
 
 *, ::after, ::before {
@@ -82,28 +147,15 @@ body {
 }
 
 .alert {
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: block;
-  padding: 1rem;
-  border-radius: $radius;
-  box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.125);
-
-  i {
-    padding: 0 0.5rem 0 0;
+  @include alert();
+  &.alert-danger{
+    background: $red;
+    color: $white;
   }
-}
-
-.alert-danger {
-  background: $red;
-  color: $white;
-}
-
-.alert-success {
-  background: $green;
-  color: $white;
+  &.alert-success {
+    background: $green;
+    color: $white;
+  }
 }
 
 .form-container {
@@ -118,45 +170,25 @@ body {
 
   .form-title {
     text-align: center;
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin: 0.75rem 0 0.5rem 0;
 
     .secondary {
       color: $activated;
+      font-weight: 600;
+      padding-left: 0.25rem;
     }
   }
 
   .form-group {
-    width: 100%;
-    padding: 0.5rem 0;
+    @include form();
+  }
 
-    label {
-      display: block;
-      margin: 0 0 0.5rem 0;
-      font-weight: 500;
-      font-size: 0.9rem;
-
-      i {
-        font-size: 1rem;
-        padding: 0 0.5rem;
-      }
-    }
-
-    input,textarea {
-      display: block;
-      padding: 0.75rem 0;
-      width: 100%;
-      text-indent: 1rem;
-      border-radius: 5px;
-      border: 1px solid #eee;
-      resize: none;
-      &[type="file"]{
-        text-indent: 0;
-        padding: 0.75rem;
-      }
-
-      &:focus {
-        outline: none;
-        border: 1px solid $activated;
-      }
+  .additional-actions-inform{
+    margin: 0.75rem 0 0.25rem 0;
+    i{
+      padding: 0 0.5rem;
     }
   }
 
@@ -167,7 +199,6 @@ body {
     background: $activated;
     color: $white;
     padding: 0.75rem 1rem;
-    border-radius: 5px;
     @include button();
     &.cancel{
       background: #e1e1e1;
@@ -175,6 +206,12 @@ body {
     }
     &.delete{
       background: $red;
+    }
+  }
+
+  .additional-actions{
+    a{
+      padding: 0 0.5rem;
     }
   }
 
@@ -194,66 +231,105 @@ body {
     }
   }
 
-  .social-link{
-    button{
-      margin: 1rem 0 0 0;
-      padding: 0.75rem 1rem;
-      width: 100%;
-      border-radius: $radius;
-      background: none;
-      border: none;
-      @include button();
-    }
-    &.goo{
+  .social-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .social-link{
+      margin: 1rem 0.75rem 0 0.75rem;
       button{
-        background: $bg;
+        padding: 0.75rem 1rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        background: none;
+        border: none;
+        @include button();
+        border-radius: 50%;
+        box-shadow: $shadow;
       }
-    }
-    &.fb{
-      button{
-        color: $bg-card;
-        background: $facebook;
+      &.goo{
+        button{
+          background: $white;
+          color: #4285f4;
+          padding: 0.5rem 0.75rem;
+          border: 1px solid rgba(0,0,0,0.15);
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
       }
-    }
-    &.tw{
-      button{
-        color: $bg-card;
-        background: $twitter;
+      &.fb{
+        button{
+          color: $bg-card;
+          background: $facebook;
+        }
+      }
+      &.tw{
+        button{
+          color: $bg-card;
+          background: $twitter;
+        }
       }
     }
   }
 }
 
 .content-wrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 
   .side-wrapper {
-    &.expanded {
-      flex: 0 0 20rem;
-      @media (max-width: 991px) {
-        flex: 0 0 100vw;
-      }
-    }
-
-    &.collapsed {
-      flex: 0 0 0;
-    }
-
+    transition: $fast-anim;
+    z-index: 9999;
     min-height: 100vh;
     background: $dark;
     overflow: hidden;
     overflow-y: auto;
 
+    &.expanded {
+      transition: $fast-anim;
+      flex: 0 0 20rem;
+      @media (max-width: 991px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        max-width: 20rem;
+        width: 100%;
+      }
+    }
+
+    &.collapsed {
+      transition: $fast-anim;
+      flex: 0 0 0;
+      .sidebar-trigger {
+        transition: $fast-anim;
+        left: 0;
+      }
+      @media (max-width: 991px) {
+        transition: $fast-anim;
+        position: fixed;
+        top: 0;
+        left: 0;
+        max-width: 20rem;
+        width: 0;
+      }
+    }
+
     .sidebar-trigger {
-      position: absolute;
-      top: 0;
-      width: 2rem;
-      height: 2rem;
+      transition: $fast-anim;
+      position: fixed;
+      top: 0.5rem;
+      left: 20rem;
+      width: 2.25rem;
+      height: 2.25rem;
       background: $activated;
       border: none;
       color: $white;
+      border-radius: 0 $radius $radius 0;
 
       &:focus {
         outline: none;
@@ -262,6 +338,12 @@ body {
       &:hover {
         cursor: pointer;
       }
+
+      i{
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1.125rem;
+      }
     }
 
     .sidebar-title {
@@ -269,15 +351,18 @@ body {
       padding: 1rem 0;
       background: rgba(255, 255, 255, 0.05);
       font-size: 1.5rem;
-      font-weight: 900;
-      color: $white;
+      font-weight: 200;
       text-align: center;
-      cursor: pointer;
-      &:hover{
-        text-decoration: underline;
-      }
-      span {
-        color: $activated;
+      a{
+        text-decoration: none;
+        color: $white;
+        &:hover{
+          text-decoration: underline;
+        }
+        span {
+          color: $activated;
+          font-weight: 600;
+        }
       }
     }
 
@@ -313,55 +398,48 @@ body {
     .user-item {
       margin: 0;
       padding: 0.5rem 2rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: $white;
 
       span {
-        font-weight: 700;
+        font-size: 1rem;
+        padding: 0 0.5rem;
+        font-weight: 600;
+      }
+    }
+
+    @mixin sidebarBtn{
+      transition: $fast-anim;
+      display: inline;
+      width: 7rem;
+      padding: 0.5rem;
+      margin: 0.5rem;
+      border: none;
+      &:hover {
+        cursor: pointer;
+      }
+      @include button();
+      &.logout {
+        background: $red;
+        color: $white;
+      }
+      &.def{
+        background: $activated;
+        color: $white;
+      }
+
+      i {
+        padding-right: 1rem;
       }
     }
 
     .user-actions {
       padding: 1rem 2rem;
-      button {
-        transition: $fast-anim;
-        display: block;
-        width: 100%;
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        border: none;
-        border-radius: 0.25rem;
-
-        &:focus {
-          outline: none;
-        }
-
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:active {
-          transition: $fast-anim;
-          transform: scale(0.9);
-        }
-
-        &.edit {
-          background: $activated;
-          color: $white;
-          a{
-            color: $white;
-            text-decoration: none;
-          }
-        }
-
-        &.logout {
-          background: $red;
-          color: $white;
-        }
-
-        i {
-          padding-right: 1rem;
-        }
+      .action-btn {
+        @include sidebarBtn();
+      }
+      a{
+        text-decoration: none;
       }
     }
   }
@@ -376,7 +454,7 @@ body {
     .user-bio {
       padding: 2rem 3rem;
       @media (max-width: 991px) {
-        padding: 2rem 1rem;
+        padding: 2.5rem 1rem 0 1rem;
       }
     }
 
@@ -385,6 +463,36 @@ body {
       padding: 0 3rem 2rem 3rem;
       @media (max-width: 991px) {
         padding: 0 1rem 1rem 1rem;
+      }
+    }
+
+    .fancy-title{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+      font-size: 1.25rem;
+      font-weight: 600;
+      &:before{
+        content: "";
+        flex: 0 0 2rem;
+        height: 2px;
+        margin: 0 0.5rem 0 0;
+        background: rgba(0,0,0,0.2);
+      }
+      &:after{
+        content: "";
+        flex: 1;
+        height: 2px;
+        margin: 0 0 0 0.5rem;
+        background: rgba(0,0,0,0.2);
+      }
+    }
+
+    .spaced-in{
+      padding: 0 3rem 2rem 3rem;
+      @media (max-width: 991px) {
+        padding: 2rem 1rem;
       }
     }
 
@@ -431,5 +539,227 @@ body {
         }
       }
     }
+
+    .user-form-container{
+      background: $bg-card;
+      border-radius: $radius;
+      box-shadow: $shadow;
+      padding: 1.5rem 2rem;
+      margin: 2.5rem 1rem 1rem 1rem;
+      .user-form-title{
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 300;
+        margin: 0.75rem 0 0.5rem 0;
+
+        .secondary {
+          color: $activated;
+          font-weight: 600;
+          padding-left: 0.25rem;
+        }
+      }
+      form{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        .form-group{
+          @include form();
+          &.g-4{
+            flex: 0 0 33.333333333333%;
+            padding-right: 1rem;
+            &:nth-child(3), &:nth-child(7){
+              padding-right: 0;
+            }
+            @media(max-width: 991px){
+              flex: 0 0 100%;
+              padding-right: 0;
+            }
+          }
+          &.g-12{
+            flex: 0 0 100%;
+          }
+          &.deactivated{
+            opacity: 0.5;
+            cursor: not-allowed;
+            input{
+              pointer-events: none;
+            }
+          }
+        }
+        .submit{
+          margin: 1.5rem 0.5rem 1.5rem 0;
+          background: $green;
+          color: $white;
+          border: none;
+          padding: 0.65rem 1rem;
+          i{
+            padding: 0 0.5rem 0 0;
+          }
+          @include button();
+          @media(max-width: 991px){
+            display: block;
+            width: 100%;
+            margin: 1rem 0 0 0;
+          }
+        }
+        .cancel{
+          @media(max-width: 991px){
+            display: block;
+            width: 100%;
+            margin: 0 0 1rem 0;
+          }
+          button{
+            background: $dark;
+          }
+        }
+        .form-danger-zone{
+          display: block;
+          width: 100%;
+          .danger-title{
+            color: $red;
+            font-size: 1rem;
+            margin: 0 0 1rem 0;
+            &::before, &::after{
+              background: rgba($red,0.2);
+            }
+          }
+          .danger-btn{
+            background: $red;
+            color: $white;
+            padding: 0.65rem 1rem;
+            margin: 0 1rem 0 0;
+            i{
+              padding: 0 0.5rem 0 0;
+            }
+            @include button();
+            @media(max-width: 991px){
+              display: block;
+              width: 100%;
+            }
+          }
+          .danger-note{
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba($red, 0.8);
+            @media(max-width: 991px){
+              display: block;
+              width: 100%;
+              margin: 1rem 0 0 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-overlay{
+  transition: $fast-anim;
+  z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  &.hide{
+    transition: $fast-anim;
+    opacity: 0;
+    pointer-events: none;
+    .modal{
+      transition: $fast-anim;
+      transform: translate(-50%, -100%);
+    }
+  }
+
+  .modal{
+    transition: $fast-anim;
+    position: fixed;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-card;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    max-width: 30rem;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+    @media(max-width: 600px){
+      max-width: 80vw;
+    }
+    .modal-header{
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: $red;
+      span{
+        flex: 1;
+        font-weight: 600;
+        color: $white;
+      }
+      button{
+        background: none;
+        border: none;
+        color: $white;
+        @include button();
+        i{
+          font-size: 1.1rem;
+        }
+      }
+    }
+    .modal-body{
+      padding: 1rem 2rem;
+      p{
+        margin: 0 0 1rem 0;
+      }
+      form{
+        input{
+          width: 100%;
+          background: $red;
+          color: $white;
+          padding: 0.75rem 1rem;
+          border: none;
+          @include button();
+        }
+      }
+    }
+  }
+}
+
+.not-found-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  .page-not-found{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    p{
+      font-size: 1.2rem;
+      padding-right: 12px;
+      animation: type .5s alternate infinite;
+      span{
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  @keyframes type{
+    from{box-shadow: inset -3px 0px 0px $activated;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+  }
+}
+
+footer{
+  text-align: center;
+  padding: 1rem;
+  span{
+    padding: 0 0.25rem;
   }
 }
