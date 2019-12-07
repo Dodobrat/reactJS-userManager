@@ -1,51 +1,65 @@
 import React, { useReducer } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import LogContext from './logContext';
 import logReducer from './logReducer';
 import {
-  FILTER_LOGS,
+  CLEAR_CURRENT_LOG,
+  GET_LOG, GET_LOG_ERROR,
+  GET_LOGS, GET_LOGS_ERROR,
 } from '../types';
 
 const LogState = (props) => {
   const initialState = {
-    logs: [
-      {
-        id: 1,
-        attempt_date: '31.01.2019 21:22:23',
-        succeeded: 'No',
-        ip: '192.168.0.1',
-        login_date: '31.01.2019 21:22:23',
-        logout_date: '31.01.2019 21:22:23',
-        device: 'iPhone',
-      },
-      {
-        id: 2,
-        attempt_date: '31.01.2019 21:22:23',
-        succeeded: 'Yes',
-        ip: '192.168.0.1',
-        login_date: '31.01.2019 21:22:23',
-        logout_date: '31.01.2019 21:22:23',
-        device: 'Samsung',
-      },
-      {
-        id: 3,
-        attempt_date: '31.01.2019 21:22:23',
-        succeeded: 'No',
-        ip: '192.168.0.1',
-        login_date: '31.01.2019 21:22:23',
-        logout_date: '31.01.2019 21:22:23',
-        device: 'Desktop',
-      },
-    ],
-    filtered: null,
+    userLogs: null,
+    currentLog: null,
+    allPages: null,
   };
 
   const [state, dispatch] = useReducer(logReducer, initialState);
 
-  // Filter Logs
-  const filterLogs = (text) => {
-    dispatch({ type: FILTER_LOGS, payload: text });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  // Get Logs
+  const getUserLogs = async (userId, currentPage, perPage) => {
+    try {
+      const res = await axios.get(`/api/auth/logs/${userId}?curr=${currentPage}&pp=${perPage}`, config);
+      dispatch({
+        type: GET_LOGS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_LOGS_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  };
+
+  // Get Log by id
+  const getLogById = async (id) => {
+    try {
+      const res = await axios.get(`/api/auth/log/${id}`, config);
+      dispatch({
+        type: GET_LOG,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_LOG_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  };
+
+  const clearCurrentLog = async () => {
+    dispatch({
+      type: CLEAR_CURRENT_LOG
+    });
   };
 
   const { children } = props;
@@ -53,8 +67,12 @@ const LogState = (props) => {
   return (
     <LogContext.Provider
       value={{
-        logs: state.logs,
-        filterLogs,
+        userLogs: state.userLogs,
+        currentLog: state.currentLog,
+        allPages: state.allPages,
+        getUserLogs,
+        getLogById,
+        clearCurrentLog
       }}
     >
       {children}

@@ -23,7 +23,7 @@ const UserEdit = () => {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    if (user !== null) {
+    if (user) {
       setUpdates(user);
     }
     loadCountries();
@@ -118,6 +118,7 @@ const UserEdit = () => {
               {countries
                 ? (
                   <select name="countryId" id="countryId" value={countryId || ''} onChange={onChange}>
+                    <option value="">---Choose Country---</option>
                     {countries.map((country) => (
                       <option
                         key={country.id}

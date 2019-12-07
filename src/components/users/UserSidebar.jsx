@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
@@ -11,16 +11,8 @@ const UserSidebar = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const {
-    isAuthenticated, logout, loadUser, user, getCountry, userCountry
+    isAuthenticated, logout, user, userCountry,
   } = authContext;
-
-  useEffect(() => {
-    loadUser();
-    if (user){
-      getCountry(user.countryId);
-    }
-    // eslint-disable-next-line
-    }, [user]);
 
   const onLogout = () => {
     logout();
@@ -54,7 +46,7 @@ const UserSidebar = (props) => {
                     Email:
           <span>{user && user.email}</span>
         </p>
-        {(user && user.countryId !== null && userCountry) ? (
+        {(user && user.countryId && userCountry) ? (
           <p className="user-item nationality">
                         From:
             <span>{userCountry.name}</span>

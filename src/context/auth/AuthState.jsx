@@ -16,7 +16,11 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   DELETE_SUCCESS,
-  DELETE_FAIL, COUNTRIES_LOADED, COUNTRIES_ERROR, GET_COUNTRY, GET_COUNTRY_ERROR,
+  DELETE_FAIL,
+  COUNTRIES_LOADED,
+  COUNTRIES_ERROR,
+  GET_COUNTRY,
+  GET_COUNTRY_ERROR, RESTORE_SUCCESS,
 } from '../types';
 
 const AuthState = (props) => {
@@ -28,10 +32,32 @@ const AuthState = (props) => {
     error: null,
     success: null,
     countries: null,
-    userCountry: null
+    userCountry: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  // Get Country
+  const getCountry = async (id) => {
+    try {
+      const res = await axios.get(`/api/users/country/${id}`, config);
+      dispatch({
+        type: GET_COUNTRY,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_COUNTRY_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  };
 
   // Load User
   const loadUser = async () => {
@@ -45,21 +71,19 @@ const AuthState = (props) => {
         type: USER_LOADED,
         payload: res.data,
       });
+      if (res.data.countryId) {
+        await getCountry(res.data.countryId);
+      }
     } catch (err) {
       dispatch({
         type: AUTH_ERROR,
+        payload: err.response.data.error,
       });
     }
   };
 
   // Load Countries
   const loadCountries = async () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.get('/api/users/countries', config);
       // console.log(res);
@@ -70,39 +94,28 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: COUNTRIES_ERROR,
+        payload: err.response.data.error,
       });
     }
   };
 
-  // Get Country
-  const getCountry = async (id) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
+  const restoreUser = async (userId) => {
     try {
-      const res = await axios.get(`/api/users/country/${id}`, config);
+      const res = await axios.patch(`/api/users/restore/${userId}`, config);
       dispatch({
-        type: GET_COUNTRY,
-        payload: res.data,
+        type: RESTORE_SUCCESS,
+        payload: res.data.success,
       });
     } catch (err) {
       dispatch({
-        type: GET_COUNTRY_ERROR,
+        type: UPDATE_FAIL,
+        payload: err.response.data.error,
       });
     }
   };
 
   // Register User
   const register = async (formData) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.post('/api/users', formData, config);
 
@@ -111,7 +124,7 @@ const AuthState = (props) => {
         payload: res.data,
       });
 
-      loadUser();
+      await loadUser();
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
@@ -122,12 +135,6 @@ const AuthState = (props) => {
 
   // Login User
   const login = async (formData) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.post('/api/auth', formData, config);
 
@@ -136,7 +143,7 @@ const AuthState = (props) => {
         payload: res.data,
       });
 
-      loadUser();
+      await loadUser();
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
@@ -147,12 +154,6 @@ const AuthState = (props) => {
 
   // Update User
   const updateUser = async (user) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.put(`/api/users/${user.id}`, user, config);
 
@@ -161,7 +162,7 @@ const AuthState = (props) => {
         payload: res.data,
       });
 
-      loadUser();
+      await loadUser();
     } catch (err) {
       dispatch({
         type: UPDATE_FAIL,
@@ -172,12 +173,6 @@ const AuthState = (props) => {
 
   // Delete User
   const deleteUser = async (id) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.delete(`/api/users/${id}`, config);
 
@@ -228,7 +223,8 @@ const AuthState = (props) => {
         loadCountries,
         deleteUser,
         clearAlerts,
-        getCountry
+        getCountry,
+        restoreUser,
       }}
     >
       {children}

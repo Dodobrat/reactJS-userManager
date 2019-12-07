@@ -49,6 +49,7 @@ $fast-anim: all 0.1s ease-in-out;
 }
 
 @mixin alert{
+  z-index: 9999999;
   position: fixed;
   top: 2rem;
   left: 50%;
@@ -107,6 +108,23 @@ $fast-anim: all 0.1s ease-in-out;
   textarea{
     padding: 0.75rem;
     text-indent: 0.25rem;
+  }
+}
+
+@mixin modalBox{
+  position: fixed;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: $bg-card;
+  box-shadow: $shadow;
+  border-radius: $radius;
+  max-width: 30rem;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  @media(max-width: 600px){
+    max-width: 80vw;
   }
 }
 
@@ -496,45 +514,156 @@ body {
       }
     }
 
-    .table-container{
-      display: block;
-      overflow-x: auto;
-      padding: 0 3rem;
+    .logs-container{
+      padding: 0 3rem 1rem 3rem;
       @media (max-width: 991px) {
-        padding: 0 1rem;
+        padding: 0 1rem 1rem 1rem;
       }
-      table{
-        border-collapse: collapse;
-        border-spacing: 0;
+      .logs-card{
         width: 100%;
-        td, th{
-          border: 1px solid rgba(0,0,0,0.125);
-          padding: 0.5rem;
-          white-space: nowrap;
+        background: $bg-card;
+        box-shadow: $shadow;
+        border-radius: $radius;
+        padding: 1rem 2rem;
+        .logs-header{
+          padding: 0.5rem 0 1rem 0;
+          box-shadow: 0 10px 10px -10px rgba(0,0,0,0.2);
+          &-row{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            .item{
+              flex: 1;
+              font-size: 1rem;
+              font-weight: 700;
+              padding: 0 0.75rem;
+            }
+          }
         }
-        tbody{
-          tr:nth-child(odd){
-            background: #e1e1e1;
+        .logs-body{
+          .item-row{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            &:hover{
+              background: rgba(0,0,0,0.025);
+            }
+            .item{
+              cursor: pointer;
+              flex: 1;
+              padding: 0.75rem;
+              font-size: 1rem;
+              font-weight: 400;
+              border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+          }
+        }
+        .logs-actions{
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 1rem 0.75rem;
+          .logs-filter{
+            flex: 1;
+            label{
+              font-size: 0.9rem;
+            }
+            select{
+              padding: 0.25rem 0;
+              margin: 0 0.5rem;
+              border-radius: 5px;
+              border: 2px solid rgba(0,0,0,0.15);
+              &:focus{
+                transition: $fast-anim;
+                outline: none;
+                border: 2px solid $activated;
+              }
+            }
+          }
+          .pagination{
+            span{
+              font-size: 0.9rem;
+              padding: 0 0.5rem 0 0;
+            }
+            button{
+              @include button();
+              margin: 0 0.5rem 0 0;
+              padding: 0.25rem 0.5rem;
+              width: 2rem;
+              height: 1.75rem;
+              background: $bg-card;
+              border: 1px solid rgba(0,0,0,0.15);
+              &:last-child{
+                margin: 0;
+              }
+              &.active{
+                background: $activated;
+                color: $white;
+              }
+            }
+          }
+        }
+        @media (max-width: 991px) {
+          padding: 1rem;
+          overflow-x: auto;
+          .logs-header{
+            &-row{
+              .item{
+                min-width: 250px;
+                max-width: 250px;
+                width: 100%;
+                white-space: nowrap;
+              }
+            }
+          }
+          .logs-body{
+            .item-row{
+              .item{
+                min-width: 250px;
+                max-width: 250px;
+                width: 100%;
+                white-space: nowrap;
+              }
+            }
           }
         }
       }
-      .pagination{
-        padding: 1rem 0;
-        button{
-          margin: 0 0.5rem 0.5rem 0;
-          border: 1px solid rgba(0,0,0,0.2);
-          border-radius: 5px;
-          width: 2rem;
-          height: 2rem;
-          cursor: pointer;
-          @include button();
+    }
 
-          &:last-child{
-            margin: 0;
+    .current-log{
+      padding: 1rem 3rem;
+      @media (max-width: 991px) {
+        padding: 1rem;
+      }
+      .card{
+        background: $bg-card;
+        box-shadow: $shadow;
+        border-radius: $radius;
+        padding: 1rem 2rem;
+        @media (max-width: 991px) {
+          padding: 1rem;
+        }
+        &-header{
+          display: flex;
+          align-items: center;
+          span{
+            flex: 1;
+            font-weight: 600;
           }
-          &.current{
+          button{
+            @include button();
+            padding: 0.5rem 1rem;
             background: $activated;
             color: $white;
+          }
+        }
+        &-body{
+          p{
+            font-size: 0.9rem;
+            span{
+              font-size: 1rem;
+              font-weight: 600;
+            }
           }
         }
       }
@@ -675,20 +804,7 @@ body {
 
   .modal{
     transition: $fast-anim;
-    position: fixed;
-    top: 50vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: $bg-card;
-    box-shadow: $shadow;
-    border-radius: $radius;
-    max-width: 30rem;
-    min-width: 0;
-    width: 100%;
-    overflow: hidden;
-    @media(max-width: 600px){
-      max-width: 80vw;
-    }
+    @include modalBox();
     .modal-header{
       display: flex;
       align-items: center;
@@ -753,6 +869,34 @@ body {
   @keyframes type{
     from{box-shadow: inset -3px 0px 0px $activated;}
     to{box-shadow: inset -3px 0px 0px transparent;}
+  }
+
+  .return-to-site{
+    color: $activated;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+
+.restore-user{
+  @include modalBox();
+  padding: 1.5rem;
+  p{
+    margin: 0 0 0.75rem 0;
+    text-align: center;
+    &:first-child{
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $red;
+    }
+  }
+  input{
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: $activated;
+    color: $white;
+    @include button();
   }
 }
 

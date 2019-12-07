@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   const { setAlert } = alertContext;
   const {
-    loadUser, error, success, clearAlerts,
+    loadUser, user, error, success, clearAlerts, restoreUser,
   } = authContext;
 
   useEffect(() => {
@@ -28,6 +28,23 @@ const Dashboard = () => {
     // eslint-disable-next-line
     }, [error, success]);
 
+  const handleRestoreUser = (e) => {
+    e.preventDefault();
+    restoreUser(user.id);
+    loadUser();
+  };
+
+  if (user && user.deleted === 1) {
+    return (
+      <div className="main-wrapper">
+        <form onSubmit={handleRestoreUser} className="restore-user">
+          <p>Your account has been deleted!</p>
+          <p>Would you like to restore it?</p>
+          <input type="submit" value="Restore Account" />
+        </form>
+      </div>
+    );
+  }
   return (
     <div className="content-wrapper">
       <UserSidebar editing={false} />

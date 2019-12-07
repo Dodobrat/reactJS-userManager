@@ -10,7 +10,11 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   DELETE_SUCCESS,
-  DELETE_FAIL, COUNTRIES_LOADED, COUNTRIES_ERROR, GET_COUNTRY, GET_COUNTRY_ERROR,
+  DELETE_FAIL,
+  COUNTRIES_LOADED,
+  COUNTRIES_ERROR,
+  GET_COUNTRY,
+  GET_COUNTRY_ERROR, RESTORE_SUCCESS,
 } from '../types';
 
 export default (state, action) => {
@@ -47,6 +51,7 @@ export default (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
+        userCountry: null,
         error: action.payload,
       };
     case DELETE_SUCCESS:
@@ -57,19 +62,25 @@ export default (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
+        userCountry: null,
         success: action.payload,
       };
     case UPDATE_SUCCESS:
       return {
         ...state,
         user: (state.user.id === action.payload.id ? action.payload : state.user),
+        success: action.payload.success,
+      };
+    case RESTORE_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
       };
     case GET_COUNTRY:
       return {
         ...state,
         userCountry: action.payload,
       };
-
     case UPDATE_FAIL:
     case DELETE_FAIL:
     case COUNTRIES_ERROR:

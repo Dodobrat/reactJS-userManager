@@ -1,16 +1,33 @@
 import {
-  FILTER_LOGS,
+  GET_LOGS,
+  GET_LOGS_ERROR,
+  GET_LOG,
+  GET_LOG_ERROR, CLEAR_CURRENT_LOG,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
-    case FILTER_LOGS:
+    case GET_LOGS:
       return {
         ...state,
-        filtered: state.logs.filter((log) => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
-          return log.device.match(regex) || log.ip.match(regex);
-        }),
+        userLogs: action.payload.data,
+        allPages: action.payload.numberOfPages,
+      };
+    case GET_LOG:
+      return {
+        ...state,
+        currentLog: action.payload,
+      };
+    case CLEAR_CURRENT_LOG:
+      return {
+        ...state,
+        currentLog: action.payload,
+      };
+    case GET_LOG_ERROR:
+    case GET_LOGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
