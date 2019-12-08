@@ -20,7 +20,8 @@ import {
   COUNTRIES_LOADED,
   COUNTRIES_ERROR,
   GET_COUNTRY,
-  GET_COUNTRY_ERROR, RESTORE_SUCCESS,
+  GET_COUNTRY_ERROR,
+  RESTORE_SUCCESS,
 } from '../types';
 
 const AuthState = (props) => {
@@ -137,7 +138,7 @@ const AuthState = (props) => {
   const login = async (formData) => {
     try {
       const res = await axios.post('/api/auth', formData, config);
-      console.log(res.data);
+
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -154,7 +155,7 @@ const AuthState = (props) => {
 
   const oauthAuthenticate = async (token) => {
     const oauthToken = {
-      token: token
+      token,
     };
 
     dispatch({
@@ -236,7 +237,7 @@ const AuthState = (props) => {
         clearAlerts,
         getCountry,
         restoreUser,
-        oauthAuthenticate
+        oauthAuthenticate,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import Footer from '../layout/Footer';
-import setAuthToken from "../../utils/setAuthToken";
+import setAuthToken from '../../utils/setAuthToken';
 
 const Login = () => {
   const alertContext = useContext(AlertContext);
@@ -11,15 +11,14 @@ const Login = () => {
 
   const { setAlert } = alertContext;
   const {
-    login, error, success, clearAlerts, isAuthenticated, oauthAuthenticate
+    login, error, success, clearAlerts, isAuthenticated, oauthAuthenticate,
   } = authContext;
 
   useEffect(() => {
-
-    const search = window.location.search;
+    const { search } = window.location;
     const params = new URLSearchParams(search);
     const oauthToken = params.get('token');
-    if (oauthToken){
+    if (oauthToken) {
       localStorage.setItem('token', oauthToken);
       setAuthToken(oauthToken);
       oauthAuthenticate(oauthToken);

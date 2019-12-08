@@ -1,4 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, {
+  useState, useContext, useEffect,
+} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
@@ -18,6 +20,8 @@ const UserSidebar = (props) => {
     logout();
   };
 
+  const isMobile = window.innerWidth < 991;
+
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
     if (collapsed) {
@@ -26,6 +30,30 @@ const UserSidebar = (props) => {
       setClasses('collapsed');
     }
   };
+
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+      if (width > 991 && collapsed === true) {
+        toggleSidebar();
+      } else if (width < 991 && collapsed === false) {
+        toggleSidebar();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
+
+  useEffect(() => {
+    if (isMobile) {
+      toggleSidebar();
+    }
+    // eslint-disable-next-line
+  },[isMobile]);
 
   const authLinks = (
     <>

@@ -545,16 +545,21 @@ body {
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            width: 100%;
+            border: none;
+            background: none;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             &:hover{
               background: rgba(0,0,0,0.025);
             }
             .item{
+              white-space: nowrap;
               cursor: pointer;
               flex: 1;
               padding: 0.75rem;
               font-size: 1rem;
               font-weight: 400;
-              border-bottom: 1px solid rgba(0,0,0,0.05);
             }
           }
         }
@@ -562,6 +567,7 @@ body {
           display: flex;
           align-items: center;
           justify-content: flex-start;
+          flex-wrap: wrap;
           padding: 1rem 0.75rem;
           .logs-filter{
             flex: 1;
@@ -661,6 +667,7 @@ body {
           p{
             font-size: 0.9rem;
             span{
+              padding: 0 0 0 0.75rem;
               font-size: 1rem;
               font-weight: 600;
             }

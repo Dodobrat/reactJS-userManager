@@ -11,10 +11,11 @@ const Edit = () => {
 
   const { setAlert } = alertContext;
   const {
-    user, error, success, clearAlerts,
+    user, error, success, clearAlerts, loadUser,
   } = authContext;
 
   useEffect(() => {
+    loadUser();
     if (error) {
       setAlert(error, 'danger');
       clearAlerts();

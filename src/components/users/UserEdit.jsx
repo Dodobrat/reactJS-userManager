@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 
 const UserEdit = () => {

@@ -58,7 +58,7 @@ const LogState = (props) => {
 
   const clearCurrentLog = async () => {
     dispatch({
-      type: CLEAR_CURRENT_LOG
+      type: CLEAR_CURRENT_LOG,
     });
   };
 
@@ -72,7 +72,7 @@ const LogState = (props) => {
         allPages: state.allPages,
         getUserLogs,
         getLogById,
-        clearCurrentLog
+        clearCurrentLog,
       }}
     >
       {children}
