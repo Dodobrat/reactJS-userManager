@@ -4,4 +4,6 @@ Before attempting to open, run: `npm i` / `npm install`
 
 Afterwards: `npm start`
 
+To generate production version: `npm run build`
+
 
