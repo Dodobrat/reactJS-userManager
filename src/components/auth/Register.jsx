@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import Footer from '../layout/Footer';
@@ -12,6 +13,9 @@ const Register = () => {
   const {
     register, error, clearAlerts, isAuthenticated,
   } = authContext;
+
+  const [notRobot, setNotRobot] = useState(false);
+  const [submitter, setSubmitter] = useState('');
 
   useEffect(() => {
     if (error) {
@@ -32,6 +36,21 @@ const Register = () => {
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  const handleCaptcha = (value) => {
+    setNotRobot(value);
+  };
+
+  const allowSubmit = () => {
+    setSubmitter(<input type="submit" value="Register" className="submit" />);
+  };
+
+  useEffect(() => {
+    if (notRobot) {
+      allowSubmit();
+    }
+    // eslint-disable-next-line
+  }, [notRobot]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -94,7 +113,10 @@ const Register = () => {
               required
             />
           </div>
-          <input type="submit" value="Register" className="submit" />
+          <div className="form-group">
+            <ReCAPTCHA sitekey="6LcKs8YUAAAAAH35fJsgUJ5A1A652NBHEA5eAHVR" onChange={handleCaptcha} size="normal" />
+          </div>
+          {notRobot && submitter}
           <p className="muted additional-actions">
             Already have an account?
             <Link to="/login" className="link">Login</Link>
