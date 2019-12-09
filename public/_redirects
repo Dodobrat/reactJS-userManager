@@ -1,1 +1,2 @@
+/api/auth  https://backend-304-coursework.herokuapp.com/api/auth
 /api/*  https://backend-304-coursework.herokuapp.com/api/:splat
