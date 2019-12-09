@@ -47,7 +47,7 @@ const AuthState = (props) => {
   // Get Country
   const getCountry = async (id) => {
     try {
-      const res = await axios.get(`/api/users/country/${id}`, config);
+      const res = await axios.get(`https://backend-304-coursework.herokuapp.com/api/users/country/${id}`, config);
       dispatch({
         type: GET_COUNTRY,
         payload: res.data,
@@ -67,7 +67,7 @@ const AuthState = (props) => {
     }
 
     try {
-      const res = await axios.get('/api/auth');
+      const res = await axios.get('https://backend-304-coursework.herokuapp.com/api/auth');
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -86,7 +86,7 @@ const AuthState = (props) => {
   // Load Countries
   const loadCountries = async () => {
     try {
-      const res = await axios.get('/api/users/countries', config);
+      const res = await axios.get('https://backend-304-coursework.herokuapp.com/api/users/countries', config);
       // console.log(res);
       dispatch({
         type: COUNTRIES_LOADED,
@@ -102,7 +102,7 @@ const AuthState = (props) => {
 
   const restoreUser = async (userId) => {
     try {
-      const res = await axios.patch(`/api/users/restore/${userId}`, config);
+      const res = await axios.patch(`https://backend-304-coursework.herokuapp.com/api/users/restore/${userId}`, config);
       dispatch({
         type: RESTORE_SUCCESS,
         payload: res.data.success,
@@ -118,7 +118,7 @@ const AuthState = (props) => {
   // Register User
   const register = async (formData) => {
     try {
-      const res = await axios.post('/api/users', formData, config);
+      const res = await axios.post('https://backend-304-coursework.herokuapp.com/api/users', formData, config);
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -137,7 +137,7 @@ const AuthState = (props) => {
   // Login User
   const login = async (formData) => {
     try {
-      const res = await axios.post('/api/auth', formData, config);
+      const res = await axios.post('https://backend-304-coursework.herokuapp.com/api/auth', formData, config);
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -167,7 +167,7 @@ const AuthState = (props) => {
   // Update User
   const updateUser = async (user) => {
     try {
-      const res = await axios.put(`/api/users/${user.id}`, user, config);
+      const res = await axios.put(`https://backend-304-coursework.herokuapp.com/api/users/${user.id}`, user, config);
 
       dispatch({
         type: UPDATE_SUCCESS,
@@ -186,7 +186,7 @@ const AuthState = (props) => {
   // Delete User
   const deleteUser = async (id) => {
     try {
-      const res = await axios.delete(`/api/users/${id}`, config);
+      const res = await axios.delete(`https://backend-304-coursework.herokuapp.com/api/users/${id}`, config);
 
       dispatch({
         type: DELETE_SUCCESS,

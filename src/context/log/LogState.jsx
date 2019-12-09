@@ -27,7 +27,7 @@ const LogState = (props) => {
   // Get Logs
   const getUserLogs = async (userId, currentPage, perPage) => {
     try {
-      const res = await axios.get(`/api/auth/logs/${userId}?curr=${currentPage}&pp=${perPage}`, config);
+      const res = await axios.get(`https://backend-304-coursework.herokuapp.com/api/auth/logs/${userId}?curr=${currentPage}&pp=${perPage}`, config);
       dispatch({
         type: GET_LOGS,
         payload: res.data,
@@ -43,7 +43,7 @@ const LogState = (props) => {
   // Get Log by id
   const getLogById = async (id) => {
     try {
-      const res = await axios.get(`/api/auth/log/${id}`, config);
+      const res = await axios.get(`https://backend-304-coursework.herokuapp.com/api/auth/log/${id}`, config);
       dispatch({
         type: GET_LOG,
         payload: res.data,
